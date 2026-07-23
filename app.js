@@ -992,9 +992,10 @@ function saveCurrentAsProfile() {
     const player = players[currentConfigPlayerId];
     const profiles = loadProfilesFromStorage();
 
-    // Salva o nome do jogador e a lista (array) de UUIDs dos agentes desbloqueados
+    // Salva o nome do jogador, a função/role selecionada e o pool de UUIDs dos agentes desbloqueados
     profiles[profileName] = {
         playerName: player.name,
+        role: player.role, // Salva a função/role selecionada
         agentPool: Array.from(player.pool)
     };
 
@@ -1048,21 +1049,28 @@ function loadProfile(profileName) {
 
     const player = players[currentConfigPlayerId];
     
-    // Apenas carrega o pool de agentes do perfil, sem forçar/alterar o nome que o usuário já digitou na caixinha!
+    // Apenas carrega o pool de agentes e a função/role do perfil, sem alterar o nome atual do jogador
     const validUuids = profile.agentPool.filter(uuid => allAgents.some(a => a.uuid === uuid));
     player.pool = new Set(validUuids);
+
+    // Carrega a função caso ela esteja salva no perfil
+    if (profile.role) {
+        player.role = profile.role;
+    } else {
+        player.role = "ANY"; // Fallback se for um perfil antigo sem role
+    }
 
     // Garante que o pool não fique inteiramente vazio pra não avacalhar o algoritmo
     if (player.pool.size === 0) {
         player.pool = new Set(allAgents.map(a => a.uuid));
     }
 
-    // Redesenha os inputs dos jogadores mantendo os nomes atuais
+    // Redesenha os inputs dos jogadores mantendo os nomes atuais e atualizando o dropdown de função
     renderAgentsPlayerInputs();
     renderWeaponsPlayerInputs();
 
     closeProfileModal();
-    alert(`Pool de agentes do perfil "${profileName}" carregado com sucesso para o jogador!`);
+    alert(`Configurações de agentes e função do perfil "${profileName}" carregadas com sucesso!`);
 }
 
 // Exclui um perfil salvo da memória
