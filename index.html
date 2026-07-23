@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um aleatorizador completo e interativo de agentes e armas do Valorant com opções personalizadas para cada jogador.">
+    <title>VALORANT // Randomizer</title>
+    
+    <!-- Fontes do Google pra deixar o layout estiloso igual ao jogo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;1,700&family=Inter:wght@300;400;600;800&family=Teko:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos do site, o CSS magico -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Grade e efeitos visuais piscando no fundo -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <!-- O corpo principal da aplicacao -->
+    <main class="app-container">
+        <!-- Titulo do site e subtitulo legal -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="v-logo">V</span>
+                <h1 class="app-title">VALORANT // RANDOMIZER</h1>
+            </div>
+            <p class="app-subtitle">Escolha seu time, configure seus pools e que a sorte decida seu destino.</p>
+        </header>
+
+        <!-- Botoes de abas para alternar entre agentes e armas -->
+        <nav class="app-nav">
+            <button id="tab-agents" class="nav-btn active" onclick="switchTab('agents')">
+                <span class="btn-line"></span>
+                <span class="btn-text">SORTEAR AGENTES</span>
+            </button>
+            <button id="tab-weapons" class="nav-btn" onclick="switchTab('weapons')">
+                <span class="btn-line"></span>
+                <span class="btn-text">SORTEAR ARMAS</span>
+            </button>
+        </nav>
+
+        <!-- Mensagem de carregando que some depois de puxar os dados -->
+        <div id="api-loading" class="api-status loading">
+            <div class="spinner"></div>
+            <p>Carregando agentes e armas da API do Valorant...</p>
+        </div>
+
+        <!-- ABA DE SORTEAR AGENTES (BONECOS) -->
+        <section id="section-agents" class="tab-content active">
+            <div class="setup-grid">
+                <!-- Painel de controle da equipe e nomes -->
+                <div class="control-panel glass-card">
+                    <h2 class="panel-title">CONFIGURAÇÃO DA EQUIPE</h2>
+                    
+                    <div class="players-count-picker">
+                        <label for="agents-player-count">Quantidade de Jogadores:</label>
+                        <select id="agents-player-count" onchange="updatePlayerInputs('agents')">
+                            <option value="1" selected>1 Jogador</option>
+                            <option value="2">2 Jogadores</option>
+                            <option value="3">3 Jogadores</option>
+                            <option value="4">4 Jogadores</option>
+                            <option value="5">5 Jogadores</option>
+                        </select>
+                    </div>
+
+                    <!-- Lista dinamica de nomes de jogadores (gerada pelo JS) -->
+                    <div id="agents-players-list" class="players-list">
+                        <!-- O Javascript vai socar a lista aqui -->
+                    </div>
+
+                    <div class="actions-area">
+                        <button id="btn-randomize-agents" class="btn-primary v-button" onclick="randomizeAgents()">
+                            <span class="btn-v-bg"></span>
+                            <span class="btn-v-text">GERAR AGENTES</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Painel de resultados da equipe sorteada -->
+                <div class="results-panel">
+                    <h2 class="section-title">EQUIPE SORTEADA</h2>
+                    <div id="agents-results" class="results-grid empty">
+                        <div class="empty-state">
+                            <div class="empty-icon">🎮</div>
+                            <h3>Pronto para o Sorteio</h3>
+                            <p>Configure os jogadores, ajuste os pools de agentes liberados e clique em "GERAR AGENTES" para revelar as atribuições.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA DE SORTEAR ARMAS -->
+        <section id="section-weapons" class="tab-content">
+            <div class="setup-grid">
+                <!-- Painel de controle das armas -->
+                <div class="control-panel glass-card">
+                    <h2 class="panel-title">CONFIGURAÇÃO DE ARMAS</h2>
+                    
+                    <div class="players-count-picker">
+                        <label for="weapons-player-count">Quantidade de Jogadores:</label>
+                        <select id="weapons-player-count" onchange="updatePlayerInputs('weapons')">
+                            <option value="1" selected>1 Jogador</option>
+                            <option value="2">2 Jogadores</option>
+                            <option value="3">3 Jogadores</option>
+                            <option value="4">4 Jogadores</option>
+                            <option value="5">5 Jogadores</option>
+                        </select>
+                    </div>
+
+                    <!-- Lista dinamica de nomes de jogadores para armas (sincronizada) -->
+                    <div id="weapons-players-list" class="players-list">
+                        <!-- O Javascript vai socar os inputs aqui -->
+                    </div>
+
+                    <!-- Selecao global de categorias de armas permitidas -->
+                    <div class="global-weapon-config">
+                        <h3>Categorias de Armas Permitidas</h3>
+                        <div class="weapon-categories-grid">
+                            <label class="category-checkbox-label">
+                                <input type="checkbox" id="weapon-cat-pistols" checked>
+                                <span class="custom-checkbox"></span> Leves / Pistolas
+                            </label>
+                            <label class="category-checkbox-label">
+                                <input type="checkbox" id="weapon-cat-smgs" checked>
+                                <span class="custom-checkbox"></span> Submetralhadoras (SMGs)
+                            </label>
+                            <label class="category-checkbox-label">
+                                <input type="checkbox" id="weapon-cat-shotguns" checked>
+                                <span class="custom-checkbox"></span> Escopetas
+                            </label>
+                            <label class="category-checkbox-label">
+                                <input type="checkbox" id="weapon-cat-rifles" checked>
+                                <span class="custom-checkbox"></span> Fuzis
+                            </label>
+                            <label class="category-checkbox-label">
+                                <input type="checkbox" id="weapon-cat-snipers" checked>
+                                <span class="custom-checkbox"></span> Fuzis de Precisão (Snipers)
+                            </label>
+                            <label class="category-checkbox-label">
+                                <input type="checkbox" id="weapon-cat-heavies" checked>
+                                <span class="custom-checkbox"></span> Armas Pesadas (Odin/Ares)
+                            </label>
+                            <label class="category-checkbox-label">
+                                <input type="checkbox" id="weapon-cat-melee" checked>
+                                <span class="custom-checkbox"></span> Confronto (Faca)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="actions-area">
+                        <button id="btn-randomize-weapons" class="btn-primary v-button" onclick="randomizeWeapons()">
+                            <span class="btn-v-bg"></span>
+                            <span class="btn-v-text">GERAR ARMAS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Painel de exibicao das armas sorteadas -->
+                <div class="results-panel">
+                    <h2 class="section-title">ARMAS SORTEADAS</h2>
+                    <div id="weapons-results" class="results-grid empty">
+                        <div class="empty-state">
+                            <div class="empty-icon">🔫</div>
+                            <h3>Pronto para o Sorteio</h3>
+                            <p>Configure os jogadores, defina quais categorias de armas estão liberadas e clique em "GERAR ARMAS" para armar sua equipe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodape interativo com o Yoru holografico e o link do GitHub -->
+        <footer class="app-footer animate-pop-in">
+            <div class="footer-divider"></div>
+            <div class="footer-content">
+                <span class="footer-text">Feito por <a href="https://github.com/LuGoAn/Valorant_Randomizer" target="_blank" rel="noopener noreferrer" class="footer-author-link"><span class="footer-author">LuGoAn(Nekin)</span></a></span>
+                <div class="yoru-badge" title="Yoru // Dimensional Rift-Walker">
+                    <img src="https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/displayicon.png" alt="Yoru" class="yoru-avatar">
+                    <div class="yoru-glow"></div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Janela flutuante (modal) para configurar o pool de agentes do jogador -->
+    <div id="modal-agent-config" class="modal">
+        <div class="modal-content glass-card animate-zoom">
+            <header class="modal-header">
+                <h2>CONFIGURAR POOL DE AGENTES</h2>
+                <button class="close-btn" onclick="closeAgentModal()">&times;</button>
+            </header>
+            <div class="modal-body">
+                <p class="modal-desc">Configure quais agentes estão liberados para <strong id="modal-player-name">Jogador</strong>. Agentes desmarcados nunca serão sorteados para esta pessoa.</p>
+                
+                <div class="modal-shortcuts">
+                    <button class="btn-secondary btn-sm" onclick="setAllAgents(true)">Habilitar Todos</button>
+                    <button class="btn-secondary btn-sm" onclick="setAllAgents(false)">Desabilitar Todos</button>
+                    <button class="btn-secondary btn-sm" onclick="setInitialAgents()">Agentes Iniciais</button>
+                </div>
+
+                <div class="agent-selector-container">
+                    <div id="agent-selector-grid" class="agent-selector-grid">
+                        <!-- O JS vai enfiar o grid de agentes aqui -->
+                    </div>
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <button class="btn-primary v-button btn-sm" onclick="saveAgentConfig()">
+                    <span class="btn-v-bg"></span>
+                    <span class="btn-v-text">SALVAR CONFIGURAÇÃO</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Janela flutuante (modal) para gerenciar perfis de jogadores -->
+    <div id="modal-profile-config" class="modal">
+        <div class="modal-content glass-card animate-zoom">
+            <header class="modal-header">
+                <h2>GERENCIAR PERFIS</h2>
+                <button class="close-btn" onclick="closeProfileModal()">&times;</button>
+            </header>
+            <div class="modal-body">
+                <p class="modal-desc">Selecione um perfil salvo para carregar a configuração ou salve as configurações atuais do jogador.</p>
+                
+                <!-- Criar ou atualizar perfil -->
+                <div class="profile-save-area">
+                    <input type="text" id="profile-name-input" placeholder="Nome do Perfil (ex: Lucas)" class="player-name-input" style="border: 1px solid var(--border-color); padding: 0.5rem; border-radius: 4px; background: rgba(15, 18, 20, 0.8);">
+                    <button class="btn-primary v-button btn-sm" onclick="saveCurrentAsProfile()" style="width: auto; margin-left: 0.5rem;">
+                        <span class="btn-v-bg"></span>
+                        <span class="btn-v-text">SALVAR ATUAL</span>
+                    </button>
+                </div>
+                
+                <h3 style="font-family: var(--font-header); font-size: 1.25rem; color: var(--primary); margin: 1.5rem 0 0.75rem 0; letter-spacing: 1px;">PERFIS SALVOS</h3>
+                <div id="profile-list-container" class="profile-list-container">
+                    <!-- O JS vai injetar os perfis salvos aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- O motorzinho principal do site -->
+    <script src="app.js"></script>
+</body>
+</html>
