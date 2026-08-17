@@ -1,4 +1,4 @@
-# 🎮 VALORANT // RANDOMIZER
+#  VALORANT // RANDOMIZER
 
 > **Gambiarra de elite** pra decidir quem vai jogar com o que naquela gameplay de sexta-feira à noite com o squad!
 
@@ -8,7 +8,7 @@ Feito do zero com carinho por **LuGoAn(Nekin)**, com uma fenda dimensional holog
 
 ---
 
-## 🚀 Funcionalidades Cabulosas
+##  Funcionalidades Cabulosas
 
 1. **Sorteador Inteligente de Agentes (Sem Repetição)**
    - Um resolvedor algorítmico por **Backtracking (CSP - Constraint Satisfaction Problem)** cuida de garantir que **nenhum jogador jogue com o mesmo agente** no time.
@@ -38,7 +38,7 @@ Feito do zero com carinho por **LuGoAn(Nekin)**, com uma fenda dimensional holog
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - **HTML5**: Estrutura semântica e acessível.
 - **Vanilla CSS**: Estilização rica inspirada no jogo (cores carbon, gradients neon, glassmorphic cards, Barlow Condensed, Teko, etc.). Sem frameworks pesados!
@@ -46,7 +46,7 @@ Feito do zero com carinho por **LuGoAn(Nekin)**, com uma fenda dimensional holog
 
 ---
 
-## 📁 Estrutura do Projeto
+##  Estrutura do Projeto
 
 O projeto é mantido com a seguinte estrutura enxuta de arquivos locais:
 
@@ -60,7 +60,7 @@ valorant-randomizer/
 
 ---
 
-## 🎮 Como Usar
+##  Como Usar
 
 1. Basta abrir o arquivo `index.html` em qualquer navegador moderno da sua escolha (não precisa de servidores complexos, tudo roda localmente!).
 2. **Defina seu time**: Digite os nomes dos seus amigos e selecione as funções que cada um deseja jogar.
