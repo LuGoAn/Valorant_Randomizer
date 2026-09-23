@@ -212,44 +212,85 @@ body {
     left: 100%;
 }
 
-/* Avisos de carregamento ou erro da API */
-.api-status {
+/* Barra de Status da Conexão com a API */
+.api-status-bar-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
     animation: fadeIn 0.4s ease;
 }
 
-.api-status.loading {
-    background: rgba(255, 70, 85, 0.05);
-    border: 1px dashed rgba(255, 70, 85, 0.3);
+.api-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.45rem 1.25rem;
+    background: rgba(17, 20, 26, 0.75);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     color: var(--text-light);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: var(--transition-smooth);
 }
 
-.api-status.error {
-    background: rgba(230, 62, 75, 0.15);
-    border: 1px solid var(--primary);
-    color: var(--text-light);
+.status-indicator {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+    transition: var(--transition-smooth);
 }
 
-.dismiss-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
+.status-indicator.online {
+    background-color: #00f59b;
+    box-shadow: 0 0 8px #00f59b;
+    animation: statusPulse 2s infinite ease-in-out;
+}
+
+.status-indicator.cached {
+    background-color: #ffaa00;
+    box-shadow: 0 0 8px #ffaa00;
+}
+
+.status-indicator.offline {
+    background-color: var(--primary);
+    box-shadow: 0 0 8px var(--primary);
+}
+
+@keyframes statusPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 0.75; }
+}
+
+.btn-api-refresh {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: var(--text-light);
-    padding: 0.25rem 0.75rem;
-    border-radius: 2px;
+    border-radius: 14px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
     cursor: pointer;
-    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-body);
+    font-weight: 600;
     transition: var(--transition-fast);
 }
 
-.dismiss-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+.btn-api-refresh:hover {
+    background: rgba(255, 70, 85, 0.25);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.btn-api-refresh.spinning .refresh-icon {
+    display: inline-block;
+    animation: spin 0.8s linear infinite;
 }
 
 .spinner {
@@ -1083,9 +1124,10 @@ select:focus {
     width: 50px;
     height: 50px;
     border-radius: 4px;
-    object-fit: cover;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    object-fit: contain;
+    background: rgba(15, 20, 26, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2px;
     transition: var(--transition-smooth);
 }
 

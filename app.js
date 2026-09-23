@@ -4,120 +4,449 @@
    ========================================================================== */
 
 // --- BANCO DE DADOS DE SEGURANÇA (O FAMOSO PLANO B CASO A API CAIA) ---
-// Se a API oficial do Valorant der um cano na gente, esse array salva o rolê.
+// Se a API oficial do Valorant der um cano na gente ou faltar internet, esse array salva o rolê.
+// Contém os 29 agentes e 21 armas oficiais (incluindo a nova Warden do Patch 13.06).
 const OFFLINE_AGENTS = [
     {
-        uuid: "d3150c5a-42ab-8595-1061-bec7127d1821",
-        name: "Jett",
-        roleName: "Duelista",
-        roleIcon: "https://media.valorant-api.com/agents/roles/d76e2355-4775-13e3-6997-e2945147a5ee/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/d3150c5a-42ab-8595-1061-bec7127d1821/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/d3150c5a-42ab-8595-1061-bec7127d1821/background.png",
-        isInitial: true
+        "uuid": "e370fa57-4757-3604-3648-499e1f642d3f",
+        "name": "Gekko",
+        "roleName": "Iniciador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/e370fa57-4757-3604-3648-499e1f642d3f/background.png",
+        "isInitial": false
     },
     {
-        uuid: "eb3b61fa-4c4b-38e0-a7ec-96b6367201b3",
-        name: "Phoenix",
-        roleName: "Duelista",
-        roleIcon: "https://media.valorant-api.com/agents/roles/d76e2355-4775-13e3-6997-e2945147a5ee/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/eb3b61fa-4c4b-38e0-a7ec-96b6367201b3/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/eb3b61fa-4c4b-38e0-a7ec-96b6367201b3/background.png",
-        isInitial: true
+        "uuid": "dade69b4-4f5a-8528-247b-219e5a1facd6",
+        "name": "Fade",
+        "roleName": "Iniciador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/dade69b4-4f5a-8528-247b-219e5a1facd6/background.png",
+        "isInitial": false
     },
     {
-        uuid: "569f6d58-4b18-85d7-8b5d-47ade6cae61a",
-        name: "Sage",
-        roleName: "Sentinela",
-        roleIcon: "https://media.valorant-api.com/agents/roles/5fc02f96-40ac-ca94-4d9f-a28d5d60f49c/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/569f6d58-4b18-85d7-8b5d-47ade6cae61a/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/569f6d58-4b18-85d7-8b5d-47ade6cae61a/background.png",
-        isInitial: true
+        "uuid": "5f8d3a7f-467b-97f3-062c-13acf203c006",
+        "name": "Breach",
+        "roleName": "Iniciador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/5f8d3a7f-467b-97f3-062c-13acf203c006/background.png",
+        "isInitial": false
     },
     {
-        uuid: "320b2a48-4d9b-a075-30f1-10a9a43fc2ec",
-        name: "Sova",
-        roleName: "Iniciador",
-        roleIcon: "https://media.valorant-api.com/agents/roles/1b47defc-4747-8c83-a136-89b522d4c3fd/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/320b2a48-4d9b-a075-30f1-10a9a43fc2ec/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/320b2a48-4d9b-a075-30f1-10a9a43fc2ec/background.png",
-        isInitial: true
+        "uuid": "cc8b64c8-4b25-4ff9-6e7f-37b4da43d235",
+        "name": "Deadlock",
+        "roleName": "Sentinela",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/cc8b64c8-4b25-4ff9-6e7f-37b4da43d235/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/cc8b64c8-4b25-4ff9-6e7f-37b4da43d235/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/cc8b64c8-4b25-4ff9-6e7f-37b4da43d235/background.png",
+        "isInitial": false
     },
     {
-        uuid: "9f0d89ae-417a-4451-b1a2-541217af041e",
-        name: "Brimstone",
-        roleName: "Controlador",
-        roleIcon: "https://media.valorant-api.com/agents/roles/4ee40330-47a8-8a9d-407c-44a6e8530128/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/9f0d89ae-417a-4451-b1a2-541217af041e/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/9f0d89ae-417a-4451-b1a2-541217af041e/background.png",
-        isInitial: true
+        "uuid": "b444168c-4e35-8076-db47-ef9bf368f384",
+        "name": "Tejo",
+        "roleName": "Iniciador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/b444168c-4e35-8076-db47-ef9bf368f384/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/b444168c-4e35-8076-db47-ef9bf368f384/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/b444168c-4e35-8076-db47-ef9bf368f384/background.png",
+        "isInitial": false
     },
     {
-        uuid: "a3593731-4771-5493-9240-6b657e0f784f",
-        name: "Reyna",
-        roleName: "Duelista",
-        roleIcon: "https://media.valorant-api.com/agents/roles/d76e2355-4775-13e3-6997-e2945147a5ee/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/a3593731-4771-5493-9240-6b657e0f784f/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/a3593731-4771-5493-9240-6b657e0f784f/background.png",
-        isInitial: false
+        "uuid": "f94c3b30-42be-e959-889c-5aa313dba261",
+        "name": "Raze",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/f94c3b30-42be-e959-889c-5aa313dba261/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/f94c3b30-42be-e959-889c-5aa313dba261/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/f94c3b30-42be-e959-889c-5aa313dba261/background.png",
+        "isInitial": false
     },
     {
-        uuid: "8e253930-4c05-31dd-1b6c-968525494517",
-        name: "Omen",
-        roleName: "Controlador",
-        roleIcon: "https://media.valorant-api.com/agents/roles/4ee40330-47a8-8a9d-407c-44a6e8530128/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/background.png",
-        isInitial: false
+        "uuid": "22697a3d-45bf-8dd7-4fec-84a9e28c69d7",
+        "name": "Chamber",
+        "roleName": "Sentinela",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/22697a3d-45bf-8dd7-4fec-84a9e28c69d7/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/22697a3d-45bf-8dd7-4fec-84a9e28c69d7/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/22697a3d-45bf-8dd7-4fec-84a9e28c69d7/background.png",
+        "isInitial": false
     },
     {
-        uuid: "117ed9e3-49f3-6512-3ccf-00ad78bb4ab4",
-        name: "Cypher",
-        roleName: "Sentinela",
-        roleIcon: "https://media.valorant-api.com/agents/roles/5fc02f96-40ac-ca94-4d9f-a28d5d60f49c/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/117ed9e3-49f3-6512-3ccf-00ad78bb4ab4/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/117ed9e3-49f3-6512-3ccf-00ad78bb4ab4/background.png",
-        isInitial: false
+        "uuid": "601dbbe7-43ce-be57-2a40-4abd24953621",
+        "name": "KAY/O",
+        "roleName": "Iniciador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/601dbbe7-43ce-be57-2a40-4abd24953621/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/601dbbe7-43ce-be57-2a40-4abd24953621/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/601dbbe7-43ce-be57-2a40-4abd24953621/background.png",
+        "isInitial": false
     },
     {
-        uuid: "30821734-47b0-6218-8071-2b8277b6c72e",
-        name: "Breach",
-        roleName: "Iniciador",
-        roleIcon: "https://media.valorant-api.com/agents/roles/1b47defc-4747-8c83-a136-89b522d4c3fd/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/30821734-47b0-6218-8071-2b8277b6c72e/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/30821734-47b0-6218-8071-2b8277b6c72e/background.png",
-        isInitial: false
+        "uuid": "6f2a04ca-43e0-be17-7f36-b3908627744d",
+        "name": "Skye",
+        "roleName": "Iniciador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/6f2a04ca-43e0-be17-7f36-b3908627744d/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/6f2a04ca-43e0-be17-7f36-b3908627744d/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/6f2a04ca-43e0-be17-7f36-b3908627744d/background.png",
+        "isInitial": false
     },
     {
-        uuid: "f94c7e02-41d4-8d98-4902-694e319b248e",
-        name: "Raze",
-        roleName: "Duelista",
-        roleIcon: "https://media.valorant-api.com/agents/roles/d76e2355-4775-13e3-6997-e2945147a5ee/displayicon.png",
-        portrait: "https://media.valorant-api.com/agents/f94c7e02-41d4-8d98-4902-694e319b248e/fullportrait.png",
-        background: "https://media.valorant-api.com/agents/f94c7e02-41d4-8d98-4902-694e319b248e/background.png",
-        isInitial: false
+        "uuid": "117ed9e3-49f3-6512-3ccf-0cada7e3823b",
+        "name": "Cypher",
+        "roleName": "Sentinela",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/117ed9e3-49f3-6512-3ccf-0cada7e3823b/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/117ed9e3-49f3-6512-3ccf-0cada7e3823b/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/117ed9e3-49f3-6512-3ccf-0cada7e3823b/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "320b2a48-4d9b-a075-30f1-1f93a9b638fa",
+        "name": "Sova",
+        "roleName": "Iniciador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/1b47567f-8f7b-444b-aae3-b0c634622d10/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/320b2a48-4d9b-a075-30f1-1f93a9b638fa/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/320b2a48-4d9b-a075-30f1-1f93a9b638fa/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/320b2a48-4d9b-a075-30f1-1f93a9b638fa/background.png",
+        "isInitial": true
+    },
+    {
+        "uuid": "7c8a4701-4de6-9355-b254-e09bc2a34b72",
+        "name": "Miks",
+        "roleName": "Controlador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/7c8a4701-4de6-9355-b254-e09bc2a34b72/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/7c8a4701-4de6-9355-b254-e09bc2a34b72/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/7c8a4701-4de6-9355-b254-e09bc2a34b72/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "1e58de9c-4950-5125-93e9-a0aee9f98746",
+        "name": "Killjoy",
+        "roleName": "Sentinela",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/1e58de9c-4950-5125-93e9-a0aee9f98746/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/1e58de9c-4950-5125-93e9-a0aee9f98746/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/1e58de9c-4950-5125-93e9-a0aee9f98746/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "95b78ed7-4637-86d9-7e41-71ba8c293152",
+        "name": "Harbor",
+        "roleName": "Controlador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/95b78ed7-4637-86d9-7e41-71ba8c293152/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/95b78ed7-4637-86d9-7e41-71ba8c293152/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/95b78ed7-4637-86d9-7e41-71ba8c293152/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "efba5359-4016-a1e5-7626-b1ae76895940",
+        "name": "Vyse",
+        "roleName": "Sentinela",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/efba5359-4016-a1e5-7626-b1ae76895940/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/efba5359-4016-a1e5-7626-b1ae76895940/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/efba5359-4016-a1e5-7626-b1ae76895940/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "707eab51-4836-f488-046a-cda6bf494859",
+        "name": "Viper",
+        "roleName": "Controlador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/707eab51-4836-f488-046a-cda6bf494859/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/707eab51-4836-f488-046a-cda6bf494859/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/707eab51-4836-f488-046a-cda6bf494859/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "eb93336a-449b-9c1b-0a54-a891f7921d69",
+        "name": "Phoenix",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/eb93336a-449b-9c1b-0a54-a891f7921d69/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/eb93336a-449b-9c1b-0a54-a891f7921d69/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/eb93336a-449b-9c1b-0a54-a891f7921d69/background.png",
+        "isInitial": true
+    },
+    {
+        "uuid": "92eeef5d-43b5-1d4a-8d03-b3927a09034b",
+        "name": "Veto",
+        "roleName": "Sentinela",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/92eeef5d-43b5-1d4a-8d03-b3927a09034b/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "41fb69c1-4189-7b37-f117-bcaf1e96f1bf",
+        "name": "Astra",
+        "roleName": "Controlador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/41fb69c1-4189-7b37-f117-bcaf1e96f1bf/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/41fb69c1-4189-7b37-f117-bcaf1e96f1bf/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/41fb69c1-4189-7b37-f117-bcaf1e96f1bf/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "9f0d8ba9-4140-b941-57d3-a7ad57c6b417",
+        "name": "Brimstone",
+        "roleName": "Controlador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/9f0d8ba9-4140-b941-57d3-a7ad57c6b417/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/9f0d8ba9-4140-b941-57d3-a7ad57c6b417/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/9f0d8ba9-4140-b941-57d3-a7ad57c6b417/background.png",
+        "isInitial": true
+    },
+    {
+        "uuid": "0e38b510-41a8-5780-5e8f-568b2a4f2d6c",
+        "name": "Iso",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/0e38b510-41a8-5780-5e8f-568b2a4f2d6c/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/0e38b510-41a8-5780-5e8f-568b2a4f2d6c/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/0e38b510-41a8-5780-5e8f-568b2a4f2d6c/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "1dbf2edd-4729-0984-3115-daa5eed44993",
+        "name": "Clove",
+        "roleName": "Controlador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/1dbf2edd-4729-0984-3115-daa5eed44993/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/1dbf2edd-4729-0984-3115-daa5eed44993/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/1dbf2edd-4729-0984-3115-daa5eed44993/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "bb2a4828-46eb-8cd1-e765-15848195d751",
+        "name": "Neon",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/bb2a4828-46eb-8cd1-e765-15848195d751/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/bb2a4828-46eb-8cd1-e765-15848195d751/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/bb2a4828-46eb-8cd1-e765-15848195d751/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "7f94d92c-4234-0a36-9646-3a87eb8b5c89",
+        "name": "Yoru",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "df1cb487-4902-002e-5c17-d28e83e78588",
+        "name": "Waylay",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/df1cb487-4902-002e-5c17-d28e83e78588/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/df1cb487-4902-002e-5c17-d28e83e78588/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/df1cb487-4902-002e-5c17-d28e83e78588/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "569fdd95-4d10-43ab-ca70-79becc718b46",
+        "name": "Sage",
+        "roleName": "Sentinela",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/5fc02f99-4091-4486-a531-98459a3e95e9/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/569fdd95-4d10-43ab-ca70-79becc718b46/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/569fdd95-4d10-43ab-ca70-79becc718b46/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/569fdd95-4d10-43ab-ca70-79becc718b46/background.png",
+        "isInitial": true
+    },
+    {
+        "uuid": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
+        "name": "Reyna",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/a3bfb853-43b2-7238-a4f1-ad90e9e46bcc/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "8e253930-4c05-31dd-1b6c-968525494517",
+        "name": "Omen",
+        "roleName": "Controlador",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/4ee40330-ecdd-4f2f-98a8-eb1243428373/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/background.png",
+        "isInitial": false
+    },
+    {
+        "uuid": "add6443a-41bd-e414-f6ad-e58d267f4e95",
+        "name": "Jett",
+        "roleName": "Duelista",
+        "roleIcon": "https://media.valorant-api.com/agents/roles/dbe8757e-9e92-4ed4-b39f-9dfc589691d4/displayicon.png",
+        "displayIcon": "https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/displayicon.png",
+        "portrait": "https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/fullportrait.png",
+        "background": "https://media.valorant-api.com/agents/add6443a-41bd-e414-f6ad-e58d267f4e95/background.png",
+        "isInitial": true
     }
 ];
 
 const OFFLINE_WEAPONS = [
-    { uuid: "classic", name: "Classic", category: "Leves / Pistolas", portrait: "https://media.valorant-api.com/weapons/29a0cfab-4da2-4ca9-95b6-5c690be21629/displayicon.png", internalCat: "pistols" },
-    { uuid: "shorty", name: "Shorty", category: "Leves / Pistolas", portrait: "https://media.valorant-api.com/weapons/42da8cce-40be-4b75-b55d-5c1a40612dbf/displayicon.png", internalCat: "pistols" },
-    { uuid: "frenzy", name: "Frenzy", category: "Leves / Pistolas", portrait: "https://media.valorant-api.com/weapons/44d134c2-48f5-934c-9f85-ab9c387e287c/displayicon.png", internalCat: "pistols" },
-    { uuid: "ghost", name: "Ghost", category: "Leves / Pistolas", portrait: "https://media.valorant-api.com/weapons/1baa85b4-4c70-1284-6d97-fb8f1c05a593/displayicon.png", internalCat: "pistols" },
-    { uuid: "sheriff", name: "Sheriff", category: "Leves / Pistolas", portrait: "https://media.valorant-api.com/weapons/e3367401-4aa0-111d-412f-539d9c77517f/displayicon.png", internalCat: "pistols" },
-    { uuid: "stinger", name: "Stinger", category: "Submetralhadoras (SMGs)", portrait: "https://media.valorant-api.com/weapons/f7e1b2b4-486a-f111-ee84-7e9e7df01099/displayicon.png", internalCat: "smgs" },
-    { uuid: "spectre", name: "Spectre", category: "Submetralhadoras (SMGs)", portrait: "https://media.valorant-api.com/weapons/462080f5-467c-a5b7-e176-ecb73ec9a902/displayicon.png", internalCat: "smgs" },
-    { uuid: "bucky", name: "Bucky", category: "Escopetas", portrait: "https://media.valorant-api.com/weapons/910be174-449b-7c41-822f-29bfa4d34b12/displayicon.png", internalCat: "shotguns" },
-    { uuid: "judge", name: "Judge", category: "Escopetas", portrait: "https://media.valorant-api.com/weapons/ec845bf4-4f79-dd7b-978b-a083ab100237/displayicon.png", internalCat: "shotguns" },
-    { uuid: "bulldog", name: "Bulldog", category: "Fuzis", portrait: "https://media.valorant-api.com/weapons/ae3de142-4d85-2534-72ef-75a9634d8ec7/displayicon.png", internalCat: "rifles" },
-    { uuid: "guardian", name: "Guardian", category: "Fuzis", portrait: "https://media.valorant-api.com/weapons/4ade7faa-4cf1-83c1-2757-bdae8f9f49ac/displayicon.png", internalCat: "rifles" },
-    { uuid: "phantom", name: "Phantom", category: "Fuzis", portrait: "https://media.valorant-api.com/weapons/ee8e4bbe-4ae3-6399-1dd6-ae92c5cd4e74/displayicon.png", internalCat: "rifles" },
-    { uuid: "vandal", name: "Vandal", category: "Fuzis", portrait: "https://media.valorant-api.com/weapons/9c82e19d-4575-0200-1a81-7eec0006f15e/displayicon.png", internalCat: "rifles" },
-    { uuid: "marshal", name: "Marshal", category: "Fuzis de Precisão (Snipers)", portrait: "https://media.valorant-api.com/weapons/c4883e50-4494-e02c-be9d-33b1e30e1658/displayicon.png", internalCat: "snipers" },
-    { uuid: "outlaw", name: "Outlaw", category: "Fuzis de Precisão (Snipers)", portrait: "https://media.valorant-api.com/weapons/5f0aea87-4385-257a-3f37-85a494729115/displayicon.png", internalCat: "snipers" },
-    { uuid: "operator", name: "Operator", category: "Fuzis de Precisão (Snipers)", portrait: "https://media.valorant-api.com/weapons/a03b24d3-472b-9974-ad7f-96f2129d4703/displayicon.png", internalCat: "snipers" },
-    { uuid: "ares", name: "Ares", category: "Armas Pesadas (Odin/Ares)", portrait: "https://media.valorant-api.com/weapons/55db3f12-472b-857c-82e6-83a4e99e29a0/displayicon.png", internalCat: "heavies" },
-    { uuid: "odin", name: "Odin", category: "Armas Pesadas (Odin/Ares)", portrait: "https://media.valorant-api.com/weapons/63e6c2a6-4a53-8685-3b73-7f854163b027/displayicon.png", internalCat: "heavies" },
-    { uuid: "melee", name: "Confronto (Faca)", portrait: "https://media.valorant-api.com/weapons/2f59173c-433b-8590-a739-14af675b3c2e/displayicon.png", category: "Confronto", internalCat: "melee" }
+    {
+        "uuid": "63e6c2b6-4a8e-869c-3d4c-e38355226584",
+        "name": "Odin",
+        "category": "Armas Pesadas (Odin/Ares)",
+        "portrait": "https://media.valorant-api.com/weapons/63e6c2b6-4a8e-869c-3d4c-e38355226584/displayicon.png",
+        "internalCat": "heavies"
+    },
+    {
+        "uuid": "55d8a0f4-4274-ca67-fe2c-06ab45efdf58",
+        "name": "Ares",
+        "category": "Armas Pesadas (Odin/Ares)",
+        "portrait": "https://media.valorant-api.com/weapons/55d8a0f4-4274-ca67-fe2c-06ab45efdf58/displayicon.png",
+        "internalCat": "heavies"
+    },
+    {
+        "uuid": "9c82e19d-4575-0200-1a81-3eacf00cf872",
+        "name": "Vandal",
+        "category": "Fuzis",
+        "portrait": "https://media.valorant-api.com/weapons/9c82e19d-4575-0200-1a81-3eacf00cf872/displayicon.png",
+        "internalCat": "rifles"
+    },
+    {
+        "uuid": "ae3de142-4d85-2547-dd26-4e90bed35cf7",
+        "name": "Bulldog",
+        "category": "Fuzis",
+        "portrait": "https://media.valorant-api.com/weapons/ae3de142-4d85-2547-dd26-4e90bed35cf7/displayicon.png",
+        "internalCat": "rifles"
+    },
+    {
+        "uuid": "ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a",
+        "name": "Phantom",
+        "category": "Fuzis",
+        "portrait": "https://media.valorant-api.com/weapons/ee8e8d15-496b-07ac-e5f6-8fae5d4c7b1a/displayicon.png",
+        "internalCat": "rifles"
+    },
+    {
+        "uuid": "ec845bf4-4f79-ddda-a3da-0db3774b2794",
+        "name": "Judge",
+        "category": "Escopetas",
+        "portrait": "https://media.valorant-api.com/weapons/ec845bf4-4f79-ddda-a3da-0db3774b2794/displayicon.png",
+        "internalCat": "shotguns"
+    },
+    {
+        "uuid": "910be174-449b-c412-ab22-d0873436b21b",
+        "name": "Bucky",
+        "category": "Escopetas",
+        "portrait": "https://media.valorant-api.com/weapons/910be174-449b-c412-ab22-d0873436b21b/displayicon.png",
+        "internalCat": "shotguns"
+    },
+    {
+        "uuid": "44d4e95c-4157-0037-81b2-17841bf2e8e3",
+        "name": "Frenzy",
+        "category": "Leves / Pistolas",
+        "portrait": "https://media.valorant-api.com/weapons/44d4e95c-4157-0037-81b2-17841bf2e8e3/displayicon.png",
+        "internalCat": "pistols"
+    },
+    {
+        "uuid": "29a0cfab-485b-f5d5-779a-b59f85e204a8",
+        "name": "Classic",
+        "category": "Leves / Pistolas",
+        "portrait": "https://media.valorant-api.com/weapons/29a0cfab-485b-f5d5-779a-b59f85e204a8/displayicon.png",
+        "internalCat": "pistols"
+    },
+    {
+        "uuid": "410b2e0b-4ceb-1321-1727-20858f7f3477",
+        "name": "Bandit",
+        "category": "Leves / Pistolas",
+        "portrait": "https://media.valorant-api.com/weapons/410b2e0b-4ceb-1321-1727-20858f7f3477/displayicon.png",
+        "internalCat": "pistols"
+    },
+    {
+        "uuid": "1baa85b4-4c70-1284-64bb-6481dfc3bb4e",
+        "name": "Ghost",
+        "category": "Leves / Pistolas",
+        "portrait": "https://media.valorant-api.com/weapons/1baa85b4-4c70-1284-64bb-6481dfc3bb4e/displayicon.png",
+        "internalCat": "pistols"
+    },
+    {
+        "uuid": "e336c6b8-418d-9340-d77f-7a9e4cfe0702",
+        "name": "Sheriff",
+        "category": "Leves / Pistolas",
+        "portrait": "https://media.valorant-api.com/weapons/e336c6b8-418d-9340-d77f-7a9e4cfe0702/displayicon.png",
+        "internalCat": "pistols"
+    },
+    {
+        "uuid": "42da8ccc-40d5-affc-beec-15aa47b42eda",
+        "name": "Shorty",
+        "category": "Leves / Pistolas",
+        "portrait": "https://media.valorant-api.com/weapons/42da8ccc-40d5-affc-beec-15aa47b42eda/displayicon.png",
+        "internalCat": "pistols"
+    },
+    {
+        "uuid": "a03b24d3-4319-996d-0f8c-94bbfba1dfc7",
+        "name": "Operator",
+        "category": "Fuzis de Precisão (Snipers)",
+        "portrait": "https://media.valorant-api.com/weapons/a03b24d3-4319-996d-0f8c-94bbfba1dfc7/displayicon.png",
+        "internalCat": "snipers"
+    },
+    {
+        "uuid": "4ade7faa-4cf1-8376-95ef-39884480959b",
+        "name": "Guardian",
+        "category": "Fuzis",
+        "portrait": "https://media.valorant-api.com/weapons/4ade7faa-4cf1-8376-95ef-39884480959b/displayicon.png",
+        "internalCat": "rifles"
+    },
+    {
+        "uuid": "5f0aaf7a-4289-3998-d5ff-eb9a5cf7ef5c",
+        "name": "Outlaw",
+        "category": "Fuzis de Precisão (Snipers)",
+        "portrait": "https://media.valorant-api.com/weapons/5f0aaf7a-4289-3998-d5ff-eb9a5cf7ef5c/displayicon.png",
+        "internalCat": "snipers"
+    },
+    {
+        "uuid": "c4883e50-4494-202c-3ec3-6b8a9284f00b",
+        "name": "Marshal",
+        "category": "Fuzis de Precisão (Snipers)",
+        "portrait": "https://media.valorant-api.com/weapons/c4883e50-4494-202c-3ec3-6b8a9284f00b/displayicon.png",
+        "internalCat": "snipers"
+    },
+    {
+        "uuid": "462080d1-4035-2937-7c09-27aa2a5c27a7",
+        "name": "Spectre",
+        "category": "Submetralhadoras (SMGs)",
+        "portrait": "https://media.valorant-api.com/weapons/462080d1-4035-2937-7c09-27aa2a5c27a7/displayicon.png",
+        "internalCat": "smgs"
+    },
+    {
+        "uuid": "f7e1b454-4ad4-1063-ec0a-159e56b58941",
+        "name": "Stinger",
+        "category": "Submetralhadoras (SMGs)",
+        "portrait": "https://media.valorant-api.com/weapons/f7e1b454-4ad4-1063-ec0a-159e56b58941/displayicon.png",
+        "internalCat": "smgs"
+    },
+    {
+        "uuid": "2f59173c-4bed-b6c3-2191-dea9b58be9c7",
+        "name": "Confronto",
+        "category": "Confronto",
+        "portrait": "https://media.valorant-api.com/weapons/2f59173c-4bed-b6c3-2191-dea9b58be9c7/displayicon.png",
+        "internalCat": "melee"
+    },
+    {
+        "uuid": "warden-patch-13-06",
+        "name": "Warden",
+        "category": "Fuzis",
+        "portrait": "https://valorantstrike.com/cms-media/2c6f2b70-160f-4791-bddb-f0a3f76aecb6.jpg",
+        "internalCat": "rifles"
+    }
 ];
 
 // --- ESTADO GLOBAL DA APLICAÇÃO ---
@@ -139,7 +468,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         pool: new Set()
     });
 
-    // Puxa tudo das APIs oficiais do Valorant em pt-BR
+    // Puxa tudo das APIs oficiais do Valorant em pt-BR silenciosamente em segundo plano
     await fetchValorantData();
     
     // Agora que temos os agentes carregados, garante que o Jogador 1 comece com TODOS liberados no pool dele
@@ -151,14 +480,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // --- COMUNICADOR DE APIs DO VALORANT ---
-// Puxa tudo em pt-BR pra ficar lindão no layout. Se a internet do cabra estiver ruim, cai no offline liso.
+// Puxa tudo em pt-BR direto da fonte. Se a internet estiver ruim, cai no cache ou offline liso.
 async function fetchValorantData() {
-    const loadingEl = document.getElementById("api-loading");
-    
     try {
         // 1. Puxa os Agentes jogáveis oficiais
         const agentsResponse = await fetch("https://valorant-api.com/v1/agents?isPlayableCharacter=true&language=pt-BR");
-        if (!agentsResponse.ok) throw new Error("API de Agentes falhou");
+        if (!agentsResponse.ok) throw new Error(`API de Agentes retornou status ${agentsResponse.status}`);
         const agentsData = await agentsResponse.json();
         
         // Mapeia os dados da API pra nossa estrutura
@@ -167,22 +494,21 @@ async function fetchValorantData() {
             name: agent.displayName,
             roleName: agent.role ? agent.role.displayName : "Sem Função",
             roleIcon: agent.role ? agent.role.displayIcon : "",
-            portrait: agent.fullPortrait,
-            background: agent.background,
-            isInitial: ["Jett", "Phoenix", "Sage", "Sova", "Brimstone"].includes(agent.displayName)
+            displayIcon: agent.displayIcon || agent.displayIconSmall || "",
+            portrait: agent.fullPortrait || agent.displayIcon || "",
+            background: agent.background || "",
+            isInitial: ["Jett", "Phoenix", "Sage", "Sova", "Brimstone"].includes(agent.displayName),
+            releaseDate: agent.releaseDate || ""
         }));
 
         // 2. Puxa as Armas oficiais
         const weaponsResponse = await fetch("https://valorant-api.com/v1/weapons?language=pt-BR");
-        if (!weaponsResponse.ok) throw new Error("API de Armas falhou");
+        if (!weaponsResponse.ok) throw new Error(`API de Armas retornou status ${weaponsResponse.status}`);
         const weaponsData = await weaponsResponse.json();
 
-        // Mapeia as armas oficiais da API (sem preço, ignorando creds)
+        // Mapeia as armas oficiais da API
         allWeapons = weaponsData.data.map(weapon => {
-            // Mapeia a categoria interna pra gente filtrar fácil pelos checkboxes globais
             let internalCat = "melee";
-            const shopData = weapon.shopData;
-            
             if (weapon.category) {
                 const catStr = weapon.category.toLowerCase();
                 if (catStr.includes("pistol") || catStr.includes("sidearm")) internalCat = "pistols";
@@ -207,17 +533,62 @@ async function fetchValorantData() {
             };
         });
 
-        console.log("Sucesso! Agentes e armas oficiais carregados diretamente da API do Valorant. Coisa fina!");
+        // Caso a API pública (valorant-api.com) ainda esteja na versão 13.05 e não tenha catalogado a Warden recém-lançada no Patch 13.06:
+        const hasWarden = allWeapons.some(w => w.name.toLowerCase() === "warden");
+        if (!hasWarden) {
+            allWeapons.push({
+                uuid: "warden-patch-13-06",
+                name: "Warden",
+                category: "Fuzis",
+                portrait: "https://valorantstrike.com/cms-media/2c6f2b70-160f-4791-bddb-f0a3f76aecb6.jpg",
+                internalCat: "rifles"
+            });
+        }
+
+        // Salva cache no localStorage para velocidade e resiliência offline
+        try {
+            localStorage.setItem("valorant_cache_agents", JSON.stringify(allAgents));
+            localStorage.setItem("valorant_cache_weapons", JSON.stringify(allWeapons));
+            localStorage.setItem("valorant_cache_time", Date.now().toString());
+        } catch (e) {
+            console.warn("Não foi possível salvar cache no localStorage:", e);
+        }
+
+        console.log(`Sucesso! Carregados ${allAgents.length} agentes e ${allWeapons.length} armas do Valorant.`);
 
     } catch (error) {
-        console.error("Ops! Deu ruim ao chamar a API oficial do Valorant. Sem desespero, puxando offline data liso:", error);
-        // Fallback offline invisível: o usuário nem percebe o baque
-        allAgents = [...OFFLINE_AGENTS];
-        allWeapons = [...OFFLINE_WEAPONS];
-    } finally {
-        // Esconde o spinner de loading suavemente
-        if (loadingEl) {
-            loadingEl.style.display = "none";
+        console.warn("Aviso: Falha ao consultar a API online do Valorant. Verificando cache local...", error);
+        
+        let loadedFromCache = false;
+        try {
+            const storedAgents = localStorage.getItem("valorant_cache_agents");
+            const storedWeapons = localStorage.getItem("valorant_cache_weapons");
+            if (storedAgents && storedWeapons) {
+                allAgents = JSON.parse(storedAgents);
+                allWeapons = JSON.parse(storedWeapons);
+                loadedFromCache = true;
+            }
+        } catch (e) {
+            console.error("Erro ao ler cache local:", e);
+        }
+
+        if (loadedFromCache && allAgents.length > 0 && allWeapons.length > 0) {
+            // Garante que a Warden também esteja presente se o cache for de uma versão anterior
+            if (!allWeapons.some(w => w.name.toLowerCase() === "warden")) {
+                allWeapons.push({
+                    uuid: "warden-patch-13-06",
+                    name: "Warden",
+                    category: "Fuzis",
+                    portrait: "https://valorantstrike.com/cms-media/2c6f2b70-160f-4791-bddb-f0a3f76aecb6.jpg",
+                    internalCat: "rifles"
+                });
+            }
+            console.log(`Carregados ${allAgents.length} agentes e ${allWeapons.length} armas do cache local.`);
+        } else {
+            // Fallback seguro usando o banco de emergência
+            allAgents = [...OFFLINE_AGENTS];
+            allWeapons = [...OFFLINE_WEAPONS];
+            console.log(`Carregados ${allAgents.length} agentes e ${allWeapons.length} armas do banco de emergência.`);
         }
     }
 }
@@ -247,33 +618,30 @@ function initializeDefaultPools() {
 // --- CONTROLE DE ALTERNÂNCIA DE ABAS ---
 // Troca as abas "Sortear Agentes" e "Sortear Armas" sem recarregar nada na tela
 function switchTab(tab) {
-    // Desativa tudo
     document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
     document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
 
-    // Ativa só o que o cabra clicou
-    document.getElementById(`tab-${tab}`).classList.add("active");
-    document.getElementById(`section-${tab}`).classList.add("active");
+    const tabBtn = document.getElementById(`tab-${tab}`);
+    const sectionEl = document.getElementById(`section-${tab}`);
+    if (tabBtn) tabBtn.classList.add("active");
+    if (sectionEl) sectionEl.classList.add("active");
 }
 
 // --- GERENCIADOR DE INPUTS DE JOGADORES (DINÂMICO) ---
 // Sincroniza a quantidade de jogadores e nomes em ambas as abas de forma automática
 function updatePlayerInputs(triggerTab) {
-    // Pega o valor selecionado no select do select que ativou a função
     const countSelect = document.getElementById(`${triggerTab}-player-count`);
+    if (!countSelect) return;
     const newCount = parseInt(countSelect.value, 10);
 
-    // Sincroniza o select da outra aba pro mesmo valor!
     const otherTab = triggerTab === "agents" ? "weapons" : "agents";
     const otherSelect = document.getElementById(`${otherTab}-player-count`);
     if (otherSelect) {
         otherSelect.value = newCount;
     }
 
-    // Ajusta o array de jogadores no estado local da aplicação
     const currentCount = players.length;
     if (newCount > currentCount) {
-        // Se aumentou, adiciona novos jogadores com pool completo por padrão
         for (let i = currentCount; i < newCount; i++) {
             players.push({
                 id: i,
@@ -283,14 +651,10 @@ function updatePlayerInputs(triggerTab) {
             });
         }
     } else if (newCount < currentCount) {
-        // Se diminuiu, remove do final mantendo os dados dos primeiros intactos
         players.splice(newCount);
     }
 
-    // Redesenha a lista de inputs na aba de AGENTES
     renderAgentsPlayerInputs();
-    
-    // Redesenha a lista de inputs na aba de ARMAS
     renderWeaponsPlayerInputs();
 }
 
@@ -302,11 +666,9 @@ function renderAgentsPlayerInputs() {
     listContainer.innerHTML = "";
 
     players.forEach((player, index) => {
-        // Cria a caixinha elegante do jogador
         const card = document.createElement("div");
         card.className = "player-input-card";
 
-        // Verifica se o cara restringiu o pool de agentes dele pra aplicar a classe amarela do botão
         const hasRestrictions = player.pool.size < allAgents.length;
         const configBtnClass = hasRestrictions ? "btn-icon-config has-restrictions" : "btn-icon-config";
         const configBtnTitle = hasRestrictions ? "Pool Personalizado (Restrições Ativas)" : "Configurar Pool de Agentes";
@@ -355,15 +717,13 @@ function renderWeaponsPlayerInputs() {
 
 // Sincroniza o nome digitado por uma pessoa em tempo real em todas as telas
 function syncPlayerName(index, value) {
-    // Trata nome vazio pra não avacalhar o design das cartas
     const finalValue = value.trim() === "" ? `Jogador ${index + 1}` : value;
     players[index].name = finalValue;
 
-    // Atualiza os campos de input correspondentes nas duas abas pra ficarem iguais
     const inputs = document.querySelectorAll(`input[data-player-id="${index}"]`);
     inputs.forEach(input => {
         if (document.activeElement !== input) {
-            input.value = value; // Só mexe no valor se o cara não estiver digitando nele pra não quebrar o foco
+            input.value = value;
         }
     });
 }
@@ -373,40 +733,30 @@ function syncPlayerRole(index, value) {
     players[index].role = value;
 }
 
-
 // --- MODAL DE SELEÇÃO DE POOL DE AGENTES DO JOGADOR ---
-// Abre a janela flutuante com a grade de agentes pra escolher quem esse jogador tem desbloqueado
 function openAgentModal(playerId) {
     currentConfigPlayerId = playerId;
     const player = players[playerId];
     
-    // Atualiza o título do modal com o nome do maluco
     document.getElementById("modal-player-name").textContent = player.name;
-    
-    // Renderiza a grade de bonecos com caixas marcáveis elegantes
     renderAgentSelectorGrid(player);
-    
-    // Abre a janela no CSS adicionando a classe active
     document.getElementById("modal-agent-config").classList.add("active");
 }
 
-// Fecha a janela flutuante do modal
 function closeAgentModal() {
     document.getElementById("modal-agent-config").classList.remove("active");
     currentConfigPlayerId = null;
 }
 
-// Desenha todos os agentes disponíveis no grid do modal com seus retratos reais
+// Desenha todos os agentes disponíveis no grid do modal com seus ícones de cabeça (displayIcon)
 function renderAgentSelectorGrid(player) {
     const gridContainer = document.getElementById("agent-selector-grid");
     if (!gridContainer) return;
 
     gridContainer.innerHTML = "";
 
-    // Ordena por ordem alfabética pra ficar chique de ler
     const sortedAgents = [...allAgents].sort((a, b) => a.name.localeCompare(b.name));
 
-    // Filtra os agentes de acordo com a função selecionada pelo jogador (ex: Duelista)
     const filteredAgents = sortedAgents.filter(agent => {
         return player.role === 'ANY' || agent.roleName.toUpperCase() === player.role.toUpperCase();
     });
@@ -414,26 +764,25 @@ function renderAgentSelectorGrid(player) {
     filteredAgents.forEach(agent => {
         const isChecked = player.pool.has(agent.uuid);
         
-        // Cria a carta do checkbox estilizada
         const card = document.createElement("div");
         card.className = `agent-checkbox-card ${isChecked ? 'checked' : ''}`;
         card.id = `modal-agent-card-${agent.uuid}`;
         
-        // Trata retrato vazio de algum agente misterioso novo pra não quebrar a imagem
-        const iconSrc = agent.portrait || "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/displayicon.png";
+        const iconSrc = agent.displayIcon || agent.portrait || "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/displayicon.png";
 
         card.innerHTML = `
             <input type="checkbox" id="chk-agent-${agent.uuid}" ${isChecked ? 'checked' : ''} onchange="toggleAgentInModal('${agent.uuid}')">
-            <img src="${iconSrc}" class="agent-checkbox-icon" alt="${agent.name}">
+            <img src="${iconSrc}" class="agent-checkbox-icon" alt="${agent.name}" loading="lazy" onerror="this.src='https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/displayicon.png'">
             <span class="agent-checkbox-name">${agent.name}</span>
         `;
         
-        // Faz clicar em qualquer lugar da cartinha alternar o status do checkbox
         card.addEventListener("click", (e) => {
             if (e.target.tagName !== "INPUT") {
                 const chk = card.querySelector("input");
-                chk.checked = !chk.checked;
-                toggleAgentInModal(agent.uuid);
+                if (chk) {
+                    chk.checked = !chk.checked;
+                    toggleAgentInModal(agent.uuid);
+                }
             }
         });
 
@@ -441,7 +790,6 @@ function renderAgentSelectorGrid(player) {
     });
 }
 
-// Controla visualmente quando o usuário liga ou desliga um agente dentro do modal
 function toggleAgentInModal(agentUuid) {
     const card = document.getElementById(`modal-agent-card-${agentUuid}`);
     const chk = document.getElementById(`chk-agent-${agentUuid}`);
@@ -455,7 +803,6 @@ function toggleAgentInModal(agentUuid) {
     }
 }
 
-// Atalho do modal: Habilita ou desabilita TODOS os bonecos de uma vez só
 function setAllAgents(enable) {
     const grid = document.getElementById("agent-selector-grid");
     if (!grid) return;
@@ -472,15 +819,12 @@ function setAllAgents(enable) {
     });
 }
 
-// Atalho do modal: Ativa apenas os 5 Agentes Iniciais gratuitos do Valorant
 function setInitialAgents() {
     const grid = document.getElementById("agent-selector-grid");
     if (!grid) return;
 
-    // Desmarca geral primeiro pra limpar a casa
     setAllAgents(false);
 
-    // Agora ativa só os clássicos iniciais
     const sortedAgents = [...allAgents];
     sortedAgents.forEach(agent => {
         if (agent.isInitial) {
@@ -494,34 +838,30 @@ function setInitialAgents() {
     });
 }
 
-// Salva as alterações feitas no pool de agentes e fecha o modal
 function saveAgentConfig() {
     if (currentConfigPlayerId === null) return;
     
     const player = players[currentConfigPlayerId];
     
-    // Varre a tela pegando as caixas marcadas e desmarcadas que estavam visíveis no modal
     const grid = document.getElementById("agent-selector-grid");
     if (grid) {
         const inputs = grid.querySelectorAll("input[type='checkbox']");
         inputs.forEach(input => {
             const agentUuid = input.id.replace("chk-agent-", "");
             if (input.checked) {
-                player.pool.add(agentUuid); // Libera o boneco no pool do jogador
+                player.pool.add(agentUuid);
             } else {
-                player.pool.delete(agentUuid); // Remove o boneco do pool
+                player.pool.delete(agentUuid);
             }
         });
     }
 
-    // Garante que o jogador tenha pelo menos um agente habilitado correspondente à função dele
     const poolAgents = Array.from(player.pool).map(uuid => allAgents.find(a => a.uuid === uuid)).filter(Boolean);
     const matchesSelectedRole = poolAgents.filter(agent => {
         return player.role === 'ANY' || agent.roleName.toUpperCase() === player.role.toUpperCase();
     });
 
     if (matchesSelectedRole.length === 0) {
-        // Puxa um agente padrão correspondente à função escolhida pra roleta não dar crash
         const defaultAgent = allAgents.find(agent => {
             return player.role === 'ANY' || agent.roleName.toUpperCase() === player.role.toUpperCase();
         });
@@ -531,63 +871,45 @@ function saveAgentConfig() {
         }
     }
 
-    // Atualiza a interface gráfica dos setups pra destacar se o cara tem restrições ativas
     renderAgentsPlayerInputs();
-    
-    // Fecha o modal liso
     closeAgentModal();
 }
 
-
-// --- ALGORITMO BACKTRACKING DA EQUIPE (CONTRAINT SATISFACTION PROBLEM) ---
-// Tenta resolver a distribuição sem repetição de bonecos, respeitando as restrições individuais
+// --- ALGORITMO BACKTRACKING DA EQUIPE (CONSTRAINT SATISFACTION PROBLEM) ---
 function solveAgentAssignments(playersList, availableAgents, playerIdx, currentAssignments, usedUuids) {
-    // Condição de parada de sucesso absoluto: todos os jogadores foram atribuídos com sucesso!
     if (playerIdx === playersList.length) {
         return currentAssignments;
     }
 
     const player = playersList[playerIdx];
 
-    // 1. Filtra candidatos válidos para este jogador específico
     let candidates = availableAgents.filter(agent => {
-        // Regra 1: O agente precisa estar na lista de habilitados (pool) desse jogador
         const inPool = player.pool.has(agent.uuid);
-        
-        // Regra 2: Precisa bater com a função individual escolhida no dropdown
         const matchesRole = player.role === "ANY" || 
             agent.roleName.toUpperCase() === player.role.toUpperCase();
-
-        // Regra 3: O boneco não pode já ter sido pego por outro jogador nessa rodada
         const notUsedYet = !usedUuids.has(agent.uuid);
 
         return inPool && matchesRole && notUsedYet;
     });
 
-    // Embaralha os candidatos pra garantir total aleatoriedade em cada geração
     candidates = shuffleArray([...candidates]);
 
-    // 2. Loop de Backtracking: tenta encaixar um candidato e ver se o resto do time se ajeita
     for (const agent of candidates) {
-        // Aloca provisoriamente
         usedUuids.add(agent.uuid);
         currentAssignments[playerIdx] = agent;
 
-        // Tenta resolver para o próximo da fila
         const solution = solveAgentAssignments(playersList, availableAgents, playerIdx + 1, currentAssignments, usedUuids);
         if (solution !== null) {
-            return solution; // Achou uma distribuição fantástica!
+            return solution;
         }
 
-        // Se deu ruim na frente, desfaz a alocação (backtrack) e tenta o próximo candidato
         usedUuids.delete(agent.uuid);
         currentAssignments[playerIdx] = null;
     }
 
-    return null; // Não há combinação válida viável por este ramo da busca
+    return null;
 }
 
-// Função de embaralhamento de arrays (Fisher-Yates) para dar aquela balançada honesta
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -596,40 +918,32 @@ function shuffleArray(array) {
     return array;
 }
 
-
-// --- SISTEMA DE ANIMAÇÃO DE SORTEIO (1.4 SEGUNDOS DO CORAÇÃO SAIR PELA BOCA) ---
-// Roda o sorteio com animação ciclante antes de entregar as cartas oficiais
+// --- SISTEMA DE ANIMAÇÃO DE SORTEIO ---
 function randomizeAgents() {
-    if (isRaffling) return; // Bloqueia clicks apressados
+    if (isRaffling) return;
     
-    // Resolve o backtracking antes pra garantir que a distribuição final seja viável
     const resultsContainer = document.getElementById("agents-results");
     if (!resultsContainer) return;
 
-    // Roda o algoritmo de backtracking em busca de uma solução perfeita
     const finalAssignments = solveAgentAssignments(players, allAgents, 0, new Array(players.length).fill(null), new Set());
 
-    // Se falhar nas restrições cruzadas (muito duelista e pouca gente no pool)
     if (finalAssignments === null) {
         alert("Ih, rapaz! Não deu pra sortear uma combinação válida com essas restrições. Tente liberar mais agentes no botão de engrenagem ⚙️ de cada jogador ou mude as funções!");
         return;
     }
 
-    // Inicia a animação de sorteio emocionante!
     isRaffling = true;
     resultsContainer.classList.remove("empty");
-    resultsContainer.classList.add("raf-active"); // Faz o painel todo brilhar piscando neon
+    resultsContainer.classList.add("raf-active");
 
     let elapsed = 0;
-    const intervalTime = 80; // Troca os bonecos na tela a cada 80 milissegundos
-    const totalTime = 1400; // Duração exata do suspense: 1.4 segundos
+    const intervalTime = 80;
+    const totalTime = 1400;
 
     const animInterval = setInterval(() => {
         resultsContainer.innerHTML = "";
         
-        // Desenha bonecos avulsos temporários de forma aleatória em cada carta
         players.forEach((player, index) => {
-            // Escolhe qualquer agente do pool daquele jogador só pra fazer graça girando na tela
             const poolArray = Array.from(player.pool).map(uuid => allAgents.find(a => a.uuid === uuid)).filter(Boolean);
             const randomAgent = poolArray.length > 0 
                 ? poolArray[Math.floor(Math.random() * poolArray.length)] 
@@ -640,7 +954,6 @@ function randomizeAgents() {
 
         elapsed += intervalTime;
         if (elapsed >= totalTime) {
-            // Fim do suspense! Mostra o resultado do backtracking final
             clearInterval(animInterval);
             resultsContainer.classList.remove("raf-active");
             
@@ -650,7 +963,6 @@ function randomizeAgents() {
     }, intervalTime);
 }
 
-// Desenha a listagem final de agentes sorteados
 function renderFinalAgents(assignments) {
     const resultsContainer = document.getElementById("agents-results");
     if (!resultsContainer) return;
@@ -659,30 +971,27 @@ function renderFinalAgents(assignments) {
     
     assignments.forEach((agent, index) => {
         const player = players[index];
-        player.currentAgent = agent; // Salva o agente sorteado na memória do jogador pra poder girar de novo individualmente sem repetir
+        player.currentAgent = agent;
         resultsContainer.appendChild(createAgentCardHTML(index, agent));
     });
 }
 
-// Auxiliar pra cuspir o HTML do Card de Agente em formato de elemento DOM pronto pra estilizar
 function createAgentCardHTML(playerIdx, agent, isRerolling = false) {
     const player = players[playerIdx];
     const card = document.createElement("div");
     card.className = "result-card animate-pop-in";
     card.id = `agent-result-card-${playerIdx}`;
 
-    // Trata arte de fundo e portraits pra não quebrar
     const bgUrl = agent.background || "";
-    const portraitUrl = agent.portrait || "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/displayicon.png";
+    const portraitUrl = agent.portrait || agent.displayIcon || "https://media.valorant-api.com/agents/7f94d92c-4234-0a36-9646-3a87eb8b5c89/fullportrait.png";
     const roleIconUrl = agent.roleIcon || "";
 
-    // Botão de girar novamente individual (escondido durante a roleta pra não dar treta)
     const rerollButtonHTML = isRerolling ? "" : `<button class="btn-reroll" onclick="rerollSingleAgent(${playerIdx})" title="Sortear novamente apenas este jogador">🔄</button>`;
 
     card.innerHTML = `
         ${rerollButtonHTML}
-        <img src="${bgUrl}" class="card-agent-bg" alt="">
-        <img src="${portraitUrl}" class="card-agent-portrait" alt="${agent.name}">
+        ${bgUrl ? `<img src="${bgUrl}" class="card-agent-bg" alt="" loading="lazy">` : ""}
+        <img src="${portraitUrl}" class="card-agent-portrait" alt="${agent.name}" loading="lazy" onerror="this.src='${agent.displayIcon}'">
         
         <div class="card-player-badge">
             <div class="card-player-label">Jogador ${playerIdx + 1}</div>
@@ -700,16 +1009,13 @@ function createAgentCardHTML(playerIdx, agent, isRerolling = false) {
     return card;
 }
 
-
 // --- SORTEADOR DE ARMAS DO TIME ---
-// Sorteia armas aleatórias (com repetição liberada) com base nos filtros globais marcados
 function randomizeWeapons() {
     if (isRaffling) return;
 
     const resultsContainer = document.getElementById("weapons-results");
     if (!resultsContainer) return;
 
-    // 1. Coleta quais categorias de armas o usuário permitiu nos checkboxes
     const allowedCategories = [];
     if (document.getElementById("weapon-cat-pistols")?.checked) allowedCategories.push("pistols");
     if (document.getElementById("weapon-cat-smgs")?.checked) allowedCategories.push("smgs");
@@ -719,13 +1025,11 @@ function randomizeWeapons() {
     if (document.getElementById("weapon-cat-heavies")?.checked) allowedCategories.push("heavies");
     if (document.getElementById("weapon-cat-melee")?.checked) allowedCategories.push("melee");
 
-    // Valida se o infeliz desmarcou absolutamente tudo
     if (allowedCategories.length === 0) {
         alert("Opa, meu consagrado! Marque pelo menos uma categoria de arma para realizar o sorteio.");
         return;
     }
 
-    // Filtra nosso banco de armas completo de acordo com as marcadas
     const candidates = allWeapons.filter(w => allowedCategories.includes(w.internalCat));
 
     if (candidates.length === 0) {
@@ -733,19 +1037,17 @@ function randomizeWeapons() {
         return;
     }
 
-    // Inicia a animação de sorteio na aba de armas!
     isRaffling = true;
     resultsContainer.classList.remove("empty");
     resultsContainer.classList.add("raf-active");
 
     let elapsed = 0;
     const intervalTime = 80;
-    const totalTime = 1400; // Mantém a padronização de 1.4s emocionante
+    const totalTime = 1400;
 
     const animInterval = setInterval(() => {
         resultsContainer.innerHTML = "";
 
-        // Mostra armas passando correndo rápido na tela de cada jogador
         players.forEach((player, index) => {
             const randomWeapon = candidates[Math.floor(Math.random() * candidates.length)];
             resultsContainer.appendChild(createWeaponCardHTML(index, randomWeapon, true));
@@ -753,14 +1055,13 @@ function randomizeWeapons() {
 
         elapsed += intervalTime;
         if (elapsed >= totalTime) {
-            // Revela a artilharia pesada oficial sorteada
             clearInterval(animInterval);
             resultsContainer.classList.remove("raf-active");
 
             resultsContainer.innerHTML = "";
             players.forEach((player, index) => {
                 const finalWeapon = candidates[Math.floor(Math.random() * candidates.length)];
-                player.currentWeapon = finalWeapon; // Salva a arma na memória
+                player.currentWeapon = finalWeapon;
                 resultsContainer.appendChild(createWeaponCardHTML(index, finalWeapon));
             });
 
@@ -769,7 +1070,6 @@ function randomizeWeapons() {
     }, intervalTime);
 }
 
-// Auxiliar pra cuspir o HTML do Card de Arma (estilo super clean sem exibir creds/preços)
 function createWeaponCardHTML(playerIdx, weapon, isRerolling = false) {
     const player = players[playerIdx];
     const card = document.createElement("div");
@@ -777,8 +1077,6 @@ function createWeaponCardHTML(playerIdx, weapon, isRerolling = false) {
     card.id = `weapon-result-card-${playerIdx}`;
 
     const portraitUrl = weapon.portrait || "";
-    
-    // Botão de girar novamente individual (escondido durante a roleta)
     const rerollButtonHTML = isRerolling ? "" : `<button class="btn-reroll" onclick="rerollSingleWeapon(${playerIdx})" title="Sortear novamente apenas esta arma">🔄</button>`;
 
     card.innerHTML = `
@@ -789,7 +1087,7 @@ function createWeaponCardHTML(playerIdx, weapon, isRerolling = false) {
         </div>
         
         <div class="card-weapon-portrait-container">
-            <img src="${portraitUrl}" class="card-weapon-portrait" alt="${weapon.name}">
+            <img src="${portraitUrl}" class="card-weapon-portrait" alt="${weapon.name}" loading="lazy">
         </div>
         
         <div class="card-agent-details">
@@ -801,15 +1099,13 @@ function createWeaponCardHTML(playerIdx, weapon, isRerolling = false) {
 }
 
 // --- SORTEIO INDIVIDUAL DE UM JOGADOR (AGENTE) ---
-// Rola a roleta novamente apenas para um jogador específico, respeitando a unicidade!
 function rerollSingleAgent(playerIdx) {
-    if (isRaffling) return; // Bloqueia se o sorteio geral ou outro individual estiver rolando
+    if (isRaffling) return;
 
     const player = players[playerIdx];
     const cardEl = document.getElementById(`agent-result-card-${playerIdx}`);
     if (!cardEl) return;
 
-    // 1. Calcula quais agentes já estão em uso por OUTROS jogadores
     const usedUuids = new Set();
     players.forEach((p, idx) => {
         if (idx !== playerIdx && p.currentAgent) {
@@ -817,7 +1113,6 @@ function rerollSingleAgent(playerIdx) {
         }
     });
 
-    // 2. Filtra os candidatos válidos para esse jogador
     const candidates = allAgents.filter(agent => {
         const inPool = player.pool.has(agent.uuid);
         const matchesRole = player.role === "ANY" || 
@@ -826,33 +1121,27 @@ function rerollSingleAgent(playerIdx) {
         return inPool && matchesRole && notUsed;
     });
 
-    // Se as restrições forem muito apertadas e não sobrou ninguém
     if (candidates.length === 0) {
         alert(`Ih, rapaz! Não sobrou nenhum agente disponível no pool de ${player.name} que atenda à função de ${player.role} e não esteja sendo usado por outros jogadores!`);
         return;
     }
 
-    // Embaralha e escolhe um felizardo
     const finalAgent = shuffleArray([...candidates])[0];
 
-    // Inicia a animação individual na caixinha deste jogador!
     isRaffling = true;
-    cardEl.classList.add("raf-active"); // Efeito de neon piscando na caixinha dele
+    cardEl.classList.add("raf-active");
 
     let elapsed = 0;
     const intervalTime = 80;
-    const totalTime = 1000; // 1 segundo de suspense individual é perfeito
+    const totalTime = 1000;
 
-    // Pega o pool completo dele para ciclar durante o suspense
     const poolArray = Array.from(player.pool).map(uuid => allAgents.find(a => a.uuid === uuid)).filter(Boolean);
 
     const animInterval = setInterval(() => {
-        // Mostra agentes passando correndo na caixinha
         const tempAgent = poolArray.length > 0 
             ? poolArray[Math.floor(Math.random() * poolArray.length)] 
             : allAgents[Math.floor(Math.random() * allAgents.length)];
             
-        // Renderiza o card temporário (com o botão de girar escondido durante a animação)
         const tempCard = createAgentCardHTML(playerIdx, tempAgent, true);
         cardEl.innerHTML = tempCard.innerHTML;
 
@@ -861,7 +1150,6 @@ function rerollSingleAgent(playerIdx) {
             clearInterval(animInterval);
             cardEl.classList.remove("raf-active");
 
-            // Define e exibe o agente final oficial
             player.currentAgent = finalAgent;
             const finalCard = createAgentCardHTML(playerIdx, finalAgent, false);
             cardEl.innerHTML = finalCard.innerHTML;
@@ -872,7 +1160,6 @@ function rerollSingleAgent(playerIdx) {
 }
 
 // --- SORTEIO INDIVIDUAL DE UMA ARMA ---
-// Sorteia novamente apenas a arma de um jogador específico
 function rerollSingleWeapon(playerIdx) {
     if (isRaffling) return;
 
@@ -880,7 +1167,6 @@ function rerollSingleWeapon(playerIdx) {
     const cardEl = document.getElementById(`weapon-result-card-${playerIdx}`);
     if (!cardEl) return;
 
-    // 1. Coleta quais categorias de armas estão permitidas globalmente
     const allowedCategories = [];
     if (document.getElementById("weapon-cat-pistols")?.checked) allowedCategories.push("pistols");
     if (document.getElementById("weapon-cat-smgs")?.checked) allowedCategories.push("smgs");
@@ -902,16 +1188,14 @@ function rerollSingleWeapon(playerIdx) {
         return;
     }
 
-    // Escolhe a arma final
     const finalWeapon = candidates[Math.floor(Math.random() * candidates.length)];
 
-    // Animação suspense na cartinha de arma do jogador
     isRaffling = true;
     cardEl.classList.add("raf-active");
 
     let elapsed = 0;
     const intervalTime = 80;
-    const totalTime = 1000; // 1 segundo de suspense
+    const totalTime = 1000;
 
     const animInterval = setInterval(() => {
         const tempWeapon = candidates[Math.floor(Math.random() * candidates.length)];
@@ -923,7 +1207,6 @@ function rerollSingleWeapon(playerIdx) {
             clearInterval(animInterval);
             cardEl.classList.remove("raf-active");
 
-            // Salva e exibe a arma final oficial
             player.currentWeapon = finalWeapon;
             const finalCard = createWeaponCardHTML(playerIdx, finalWeapon, false);
             cardEl.innerHTML = finalCard.innerHTML;
@@ -937,38 +1220,31 @@ function rerollSingleWeapon(playerIdx) {
 // --- SISTEMA CABULOSO DE GESTÃO DE PERFIS (PERSISTÊNCIA COM LOCALSTORAGE) ---
 // ==========================================================================
 
-// Abre o modal de perfis salvos pra carregar ou criar configurações de jogador
 function openProfileModal(playerIdx) {
     currentConfigPlayerId = playerIdx;
     
-    // Limpa o input do nome do perfil pro maluco digitar do zero
-    document.getElementById("profile-name-input").value = "";
+    const input = document.getElementById("profile-name-input");
+    if (input) input.value = "";
     
-    // Desenha a listinha atualizada de perfis salvos na tela
     renderProfileList();
-    
-    // Exibe o modal na marra
     document.getElementById("modal-profile-config").classList.add("active");
 }
 
-// Fecha o modal de perfis de forma lisa
 function closeProfileModal() {
     document.getElementById("modal-profile-config").classList.remove("active");
     currentConfigPlayerId = null;
 }
 
-// Puxa os perfis do localStorage de forma segura pra não quebrar a máquina do usuário
 function loadProfilesFromStorage() {
     try {
         const stored = localStorage.getItem("valorant_profiles");
         return stored ? JSON.parse(stored) : {};
     } catch (e) {
-        console.error("Ih, deu ruim ao parsear os perfis no localStorage! Resetando...", e);
+        console.error("Erro ao parsear perfis no localStorage:", e);
         return {};
     }
 }
 
-// Salva a lista inteira de perfis no localStorage pro cabra não ter que reconfigurar tudo depois
 function saveProfilesToStorage(profiles) {
     try {
         localStorage.setItem("valorant_profiles", JSON.stringify(profiles));
@@ -977,7 +1253,6 @@ function saveProfilesToStorage(profiles) {
     }
 }
 
-// Salva o pool de agentes e nome do jogador atual como um perfil persistente
 function saveCurrentAsProfile() {
     if (currentConfigPlayerId === null) return;
 
@@ -992,21 +1267,22 @@ function saveCurrentAsProfile() {
     const player = players[currentConfigPlayerId];
     const profiles = loadProfilesFromStorage();
 
-    // Salva o nome do jogador, a função/role selecionada e o pool de UUIDs dos agentes desbloqueados
+    const hasAll = player.pool.size >= allAgents.length;
+
     profiles[profileName] = {
         playerName: player.name,
-        role: player.role, // Salva a função/role selecionada
+        role: player.role,
+        hasAllAgents: hasAll,
         agentPool: Array.from(player.pool)
     };
 
     saveProfilesToStorage(profiles);
-    profileInput.value = ""; // Limpa o input pro cara ficar feliz
-    renderProfileList(); // Redesenha a lista
+    profileInput.value = "";
+    renderProfileList();
     
     alert(`Perfil "${profileName}" salvo com sucesso! Coisa linda!`);
 }
 
-// Renderiza a lista de perfis disponíveis para carregar ou excluir
 function renderProfileList() {
     const listContainer = document.getElementById("profile-list-container");
     if (!listContainer) return;
@@ -1038,7 +1314,6 @@ function renderProfileList() {
     });
 }
 
-// Carrega o perfil selecionado para o jogador atual em foco
 function loadProfile(profileName) {
     if (currentConfigPlayerId === null) return;
 
@@ -1049,23 +1324,23 @@ function loadProfile(profileName) {
 
     const player = players[currentConfigPlayerId];
     
-    // Apenas carrega o pool de agentes e a função/role do perfil, sem alterar o nome atual do jogador
-    const validUuids = profile.agentPool.filter(uuid => allAgents.some(a => a.uuid === uuid));
-    player.pool = new Set(validUuids);
+    if (profile.hasAllAgents) {
+        player.pool = new Set(allAgents.map(a => a.uuid));
+    } else {
+        const validUuids = (profile.agentPool || []).filter(uuid => allAgents.some(a => a.uuid === uuid));
+        player.pool = new Set(validUuids);
+    }
 
-    // Carrega a função caso ela esteja salva no perfil
     if (profile.role) {
         player.role = profile.role;
     } else {
-        player.role = "ANY"; // Fallback se for um perfil antigo sem role
+        player.role = "ANY";
     }
 
-    // Garante que o pool não fique inteiramente vazio pra não avacalhar o algoritmo
     if (player.pool.size === 0) {
         player.pool = new Set(allAgents.map(a => a.uuid));
     }
 
-    // Redesenha os inputs dos jogadores mantendo os nomes atuais e atualizando o dropdown de função
     renderAgentsPlayerInputs();
     renderWeaponsPlayerInputs();
 
@@ -1073,7 +1348,6 @@ function loadProfile(profileName) {
     alert(`Configurações de agentes e função do perfil "${profileName}" carregadas com sucesso!`);
 }
 
-// Exclui um perfil salvo da memória
 function deleteProfile(profileName) {
     if (!confirm(`Deseja mesmo chutar o perfil "${profileName}" pra fora?`)) return;
 
