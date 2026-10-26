@@ -2,6 +2,8 @@
 
 Um sorteador de agentes e armas do Valorant. Eu fiz pra resolver um problema bem específico: toda sexta à noite, na hora de decidir quem joga com o quê, a conversa durava mais que a partida. Agora é só abrir o site, colocar o pessoal e deixar a sorte decidir.
 
+Dá pra usar direto no navegador: [valorant-randomizer-eosin.vercel.app](https://valorant-randomizer-eosin.vercel.app/)
+
 ![Tela principal com cinco jogadores e os agentes sorteados](docs/screenshots/agentes.png)
 
 ## O que ele faz
