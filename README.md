@@ -1,73 +1,78 @@
-#  VALORANT // RANDOMIZER
+# Valorant Randomizer
 
-> **Gambiarra de elite** pra decidir quem vai jogar com o que naquela gameplay de sexta-feira à noite com o squad!
+Um sorteador de agentes e armas do Valorant. Eu fiz pra resolver um problema bem específico: toda sexta à noite, na hora de decidir quem joga com o quê, a conversa durava mais que a partida. Agora é só abrir o site, colocar o pessoal e deixar a sorte decidir.
 
-Esse é um aleatorizador completo, responsivo e ultra-estiloso de agentes e armas do Valorant. Inspirado na identidade visual do jogo, ele conta com efeitos de vidro (glassmorphic cards), brilhos de neon cibernéticos pulsantes no fundo e animações suaves de transição.
+![Tela principal com cinco jogadores e os agentes sorteados](docs/screenshots/agentes.png)
 
-Feito do zero com carinho por **LuGoAn(Nekin)**, com uma fenda dimensional holográfica do Yoru no rodapé que muda de cor ao passar o mouse.
+## O que ele faz
 
----
+Você escolhe quantos jogadores vão jogar (de 1 a 5), dá um nome pra cada um e clica em gerar. Cada jogador recebe um agente diferente, sem repetir. Se alguém não gostou do resultado, dá pra sortear de novo só aquele jogador, sem mexer no resto do time.
 
-##  Funcionalidades Cabulosas
+Algumas coisas que fui adicionando porque senti falta:
 
-1. **Sorteador Inteligente de Agentes (Sem Repetição)**
-   - Um resolvedor algorítmico por **Backtracking (CSP - Constraint Satisfaction Problem)** cuida de garantir que **nenhum jogador jogue com o mesmo agente** no time.
-   - Cada jogador tem o seu próprio pool personalizado! Clicando no botão de engrenagem `⚙️`, você define exatamente quais bonecos aquele jogador tem liberados na conta dele.
-   - **Filtro Inteligente por Função**: Se o jogador escolheu uma função específica (ex: Duelista), o modal de configuração exibe automaticamente **apenas os agentes daquela função**, facilitando marcar/desmarcar o que ele tem liberado sem bagunçar os agentes de outras funções já configurados na memória.
-   - O jogador pode escolher uma função/categoria específica (como Duelista, Sentinela, Iniciador ou Controlador) diretamente por um dropdown. O algoritmo quebra a cabeça por trás dos panos para satisfazer as restrições de todo mundo.
+- **Função por jogador.** Tem gente que só joga de duelista, e tem gente que topa qualquer coisa. Cada um escolhe a sua (Duelista, Sentinela, Iniciador, Controlador ou qualquer uma) e o sorteio respeita.
+- **Pool de agentes por jogador.** Nem todo mundo tem todos os agentes liberados na conta. O botão de ajustes ao lado do nome abre a lista de agentes dele, e o que estiver desmarcado nunca é sorteado pra essa pessoa.
+- **Perfis salvos.** Dá pra guardar o nome, a função e o pool de alguém e carregar depois com um clique, em vez de remarcar tudo toda vez.
+- **Sorteio de armas.** Numa aba separada, com filtro por categoria (pistolas, SMGs, escopetas, fuzis, snipers, armas pesadas e faca). Aqui pode repetir arma, então todo mundo pode cair de Vandal.
+- **Ele lembra do seu time.** Quantidade de jogadores, nomes, funções e pools ficam salvos no navegador, e na próxima vez que você abrir está tudo como deixou.
 
-2. **Gerenciamento de Perfis Salvos (👤)**
-   - Um botão com o ícone de silhueta `👤` antes do número de cada jogador permite acessar o gerenciador de perfis.
-   - Você pode salvar as configurações atuais daquele jogador (seu nome e pool de agentes personalizado) com um nome único.
-   - Os dados são salvos diretamente no **localStorage** do seu navegador, então você não precisa configurar o pool de agentes dos seus amigos toda vez que abrir o site! Basta carregar o perfil de cada um e mandar bala.
+<p align="center">
+  <img src="docs/screenshots/pool.png" alt="Janela de configuração do pool de agentes de um jogador" width="49%">
+  <img src="docs/screenshots/armas.png" alt="Aba de sorteio de armas com cinco armas sorteadas" width="49%">
+</p>
 
-3. **Sorteador de Armas de Elite (Sem Preços)**
-   - Distribui armas aleatoriamente para o time (aqui repetição é liberada, pois todos podem jogar de Vandal ou de Ghost!).
-   - Layout super limpo e premium que foca inteiramente na arma e na arte, omitindo os preços e créditos das armas.
-   - Filtros de categorias globais de armas permitidas na partida (Pistolas, SMGs, Escopetas, Fuzis, Snipers, Pesadas e Confronto/Faca).
+À esquerda, o pool de um jogador que só joga de duelista. À direita, a aba de armas.
 
-4. **Sincronização Instantânea de Jogadores**
-   - Escolha a quantidade de jogadores (de 1 a 5) em qualquer uma das abas. A quantidade e os nomes digitados sincronizam automaticamente na outra aba em tempo real!
+## Quando o sorteio não fecha
 
-5. **Resiliência Infinita (Offline Fallback)**
-   - Puxa dados atualizados e em tempo real em português (`pt-BR`) da API pública oficial do Valorant (`valorant-api.com`).
-   - Se o servidor estiver fora do ar ou o usuário estiver sem internet, o site ativa automaticamente um banco de dados offline interno contendo 10 agentes populares e todas as 19 armas de forma 100% silenciosa e sem banners de erro irritantes na tela.
+Se você deixar dois jogadores só com o mesmo agente liberado, não tem como sortear sem repetir. Em vez de dar um erro genérico, o site diz exatamente quem está disputando poucos agentes, pra você saber o que liberar.
 
-6. **Animação Suspense 1.4s**
-   - Ao clicar em gerar, o painel entra no modo de sorteio alternando dezenas de agentes/armas na tela e piscando em neon vermelho durante 1,4 segundos antes de revelar a equipe e o armamento final!
+Por baixo, o sorteio usa backtracking: quem tem menos opções escolhe primeiro, e se alguém ficar sem saída o algoritmo volta atrás e tenta outra combinação. Isso evita o problema de sortear um agente pra um jogador e descobrir no final que o próximo ficou sem nenhum.
 
----
+## Os dados
 
-##  Tecnologias Utilizadas
+Agentes, armas e imagens vêm da [valorant-api.com](https://valorant-api.com), em português. Os dados ficam em cache no navegador, e o site também carrega com uma lista embutida, então ele abre na hora e atualiza em segundo plano. Se a API estiver fora do ar, você nem percebe. Quando a Riot lança um agente novo, ele entra sozinho no pool de quem já tinha todos liberados.
 
-- **HTML5**: Estrutura semântica e acessível.
-- **Vanilla CSS**: Estilização rica inspirada no jogo (cores carbon, gradients neon, glassmorphic cards, Barlow Condensed, Teko, etc.). Sem frameworks pesados!
-- **Pure JavaScript (ES6)**: Algoritmos de backtracking com constraint satisfaction, sincronização dinâmica de DOM, consumo de APIs REST e gerenciamento de loops de animações.
+## Como rodar
 
----
+Não tem build nem dependência. Baixe o projeto e abra o `index.html` no navegador, só isso. Foi de propósito: eu queria que funcionasse com duplo clique e que fosse fácil de hospedar. O site publicado roda na Vercel como página estática.
 
-##  Estrutura do Projeto
+Pra rodar os testes do sorteio (precisa do Node 18 ou mais novo):
 
-O projeto é mantido com a seguinte estrutura enxuta de arquivos locais:
+```bash
+node tests/solver.test.js
+```
+
+## Como está organizado
 
 ```text
 valorant-randomizer/
-├── index.html   # Estrutura visual e modal de configuração
-├── styles.css   # O design insano inspirado em Valorant
-├── app.js       # O cérebro do site com o solver backtracking e a API
-└── README.md    # Esse manual que você está lendo
+├── index.html          estrutura da página e das janelas
+├── styles.css          todo o visual
+├── js/
+│   ├── data.js         funções, categorias e a lista offline de agentes e armas
+│   ├── solver.js       o algoritmo do sorteio (sem depender do navegador)
+│   ├── storage.js      localStorage: perfis, cache e time salvo
+│   ├── api.js          busca os dados na valorant-api.com
+│   ├── state.js        estado do time e do catálogo
+│   ├── dom.js          helpers de DOM, ícones, avisos e janelas
+│   ├── ui.js           telas, cards e animação do sorteio
+│   └── main.js         ponto de entrada
+├── tests/
+│   └── solver.test.js  testes do sorteio
+└── docs/screenshots/   imagens usadas neste README
 ```
 
+É HTML, CSS e JavaScript puros. Os scripts são carregados em ordem, sem módulos, justamente pra o arquivo abrir direto do disco.
+
+## Acessibilidade
+
+Dá pra usar tudo pelo teclado: as abas, as janelas (Esc fecha e o foco fica preso lá dentro) e as caixas de seleção. Se o sistema estiver configurado pra reduzir animações, o sorteio mostra o resultado direto, sem a roleta.
+
+## Feito por
+
+LuGoAn (Nekin). Se achar algum bug ou tiver uma ideia, abre uma issue aqui no repositório.
+
 ---
 
-##  Como Usar
-
-1. Basta abrir o arquivo `index.html` em qualquer navegador moderno da sua escolha (não precisa de servidores complexos, tudo roda localmente!).
-2. **Defina seu time**: Digite os nomes dos seus amigos e selecione as funções que cada um deseja jogar.
-3. **Configure os pools**: Caso alguém seja iniciante e não tenha todos os bonecos liberados, clique no botão de engrenagem `⚙️` do jogador correspondente e ative o filtro "Agentes Iniciais" ou selecione manualmente.
-4. **Arme-se**: Vá na aba de armas, configure quais armas estão valendo para a rodada e clique em sortear.
-5. **Divirta-se!**
-
----
-
-*VALORANT // RANDOMIZER é um projeto de fãs e não possui filiação direta com a Riot Games. Imagens e dados extraídos de valorant-api.com.*
+Projeto de fã, sem ligação com a Riot Games. Valorant e tudo que vem com ele pertencem à Riot. Imagens e dados vêm da valorant-api.com. Os nomes que aparecem nas capturas de tela são só de exemplo.

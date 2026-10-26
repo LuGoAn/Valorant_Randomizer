@@ -1,7 +1,3 @@
-/* ==========================================================================
-   ESTILO GERAL: DESIGN INSPIRADO NO VALORANT (CORES, BORDAS E AFINS)
-   ========================================================================== */
-
 :root {
     --bg-dark: #0f1214;
     --bg-card: rgba(17, 20, 26, 0.85);
@@ -21,10 +17,6 @@
     --transition-fast: all 0.15s ease;
 }
 
-/* ==========================================================================
-   RESETS BASICOS (PRA ZERAR AS MARGENS E EVITAR DOR DE CABECA)
-   ========================================================================== */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -41,7 +33,6 @@ body {
     min-height: 100vh;
 }
 
-/* fenda do yoru de fundo que fica pulsando devagarzinho */
 .bg-grid {
     position: fixed;
     top: 0;
@@ -74,7 +65,6 @@ body {
     100% { transform: scale(1.1) translate(3%, 3%); }
 }
 
-/* barra de rolagem estilizada em vermelho */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -89,10 +79,6 @@ body {
     background: var(--primary);
 }
 
-/* ==========================================================================
-   ESTRUTURA GERAL DO APP (GRID E FLEXBOX)
-   ========================================================================== */
-
 .app-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -103,22 +89,10 @@ body {
     gap: 2rem;
 }
 
-/* a logo V estilizada e inclinada do valorant */
 .app-header {
     text-align: center;
     position: relative;
     padding-bottom: 1.5rem;
-}
-
-.app-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 2px;
-    background: var(--primary);
 }
 
 .logo-area {
@@ -130,16 +104,10 @@ body {
 }
 
 .v-logo {
-    font-family: var(--font-accent);
-    font-size: 3rem;
-    font-weight: 700;
-    background: var(--primary);
-    color: var(--bg-dark);
-    padding: 0 1rem;
-    line-height: 1.1;
-    transform: skewX(-10deg);
-    border-radius: 2px;
-    box-shadow: 0 0 15px var(--primary-glow);
+    width: 3.25rem;
+    height: auto;
+    fill: var(--primary);
+    flex-shrink: 0;
 }
 
 .app-title {
@@ -158,10 +126,6 @@ body {
     max-width: 600px;
     margin: 0.5rem auto 0 auto;
 }
-
-/* ==========================================================================
-   ABAS DE NAVEGACAO DO TIME
-   ========================================================================== */
 
 .app-nav {
     display: flex;
@@ -212,105 +176,6 @@ body {
     left: 100%;
 }
 
-/* Barra de Status da Conexão com a API */
-.api-status-bar-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-    animation: fadeIn 0.4s ease;
-}
-
-.api-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.45rem 1.25rem;
-    background: rgba(17, 20, 26, 0.75);
-    border: 1px solid var(--border-color);
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: var(--text-light);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: var(--transition-smooth);
-}
-
-.status-indicator {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    display: inline-block;
-    transition: var(--transition-smooth);
-}
-
-.status-indicator.online {
-    background-color: #00f59b;
-    box-shadow: 0 0 8px #00f59b;
-    animation: statusPulse 2s infinite ease-in-out;
-}
-
-.status-indicator.cached {
-    background-color: #ffaa00;
-    box-shadow: 0 0 8px #ffaa00;
-}
-
-.status-indicator.offline {
-    background-color: var(--primary);
-    box-shadow: 0 0 8px var(--primary);
-}
-
-@keyframes statusPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.25); opacity: 0.75; }
-}
-
-.btn-api-refresh {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--text-light);
-    border-radius: 14px;
-    padding: 0.2rem 0.65rem;
-    font-size: 0.75rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-family: var(--font-body);
-    font-weight: 600;
-    transition: var(--transition-fast);
-}
-
-.btn-api-refresh:hover {
-    background: rgba(255, 70, 85, 0.25);
-    border-color: var(--primary);
-    color: #fff;
-}
-
-.btn-api-refresh.spinning .refresh-icon {
-    display: inline-block;
-    animation: spin 0.8s linear infinite;
-}
-
-.spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 70, 85, 0.2);
-    border-top: 2px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* ==========================================================================
-   GRID PRINCIPAL DAS DUAS TELAS
-   ========================================================================== */
-
 .tab-content {
     display: none;
 }
@@ -332,7 +197,6 @@ body {
     align-items: start;
 }
 
-/* caixinha de vidro bem estilosa e transparente */
 .glass-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -345,16 +209,6 @@ body {
     overflow: hidden;
 }
 
-.glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 40px;
-    background: var(--primary);
-}
-
 .panel-title {
     font-family: var(--font-header);
     font-size: 1.6rem;
@@ -365,10 +219,6 @@ body {
     padding-bottom: 0.5rem;
     color: var(--text-light);
 }
-
-/* ==========================================================================
-   INPUTS, SELETORES E BOTOES ESTILIZADOS
-   ========================================================================== */
 
 .players-count-picker {
     display: flex;
@@ -432,12 +282,12 @@ select:focus {
     color: var(--primary);
     width: 24px;
     text-align: center;
-    flex-shrink: 0; /* Impede que o numero suma de vista no aperto */
+    flex-shrink: 0;
 }
 
 .player-name-wrapper {
     flex: 1;
-    min-width: 70px; /* Garante espaço mínimo para digitar o nome sem o campo desaparecer */
+    min-width: 70px;
 }
 
 .player-name-input {
@@ -468,9 +318,9 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     transition: var(--transition-fast);
-    flex-shrink: 0; /* Impede a engrenagem de encolher no celular ou no aperto */
+    flex-shrink: 0;
 }
 
 .btn-icon-config:hover {
@@ -492,7 +342,6 @@ select:focus {
     box-shadow: 0 0 10px rgba(255, 153, 0, 0.4);
 }
 
-/* Botoes chanfrados de acao inspirados no Valorant */
 .v-button {
     position: relative;
     background: var(--primary);
@@ -528,7 +377,7 @@ select:focus {
 }
 
 .btn-v-text {
-    transform: skewX(10deg); /* Anula a inclinacao do pai pra letra ficar reta */
+    transform: skewX(10deg); /* desfaz o skew do botão */
     display: inline-block;
 }
 
@@ -551,66 +400,6 @@ select:focus {
     padding: 0.5rem 1.5rem;
 }
 
-/* Checkboxes globais dos agentes */
-.global-agent-config {
-    margin-bottom: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.global-agent-config h3 {
-    font-family: var(--font-header);
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-}
-
-.agent-roles-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.role-checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    user-select: none;
-    transition: var(--transition-fast);
-}
-
-.role-checkbox-label input {
-    display: none;
-}
-
-.role-checkbox-label:hover .custom-checkbox {
-    border-color: var(--primary);
-}
-
-.role-checkbox-label input:checked + .custom-checkbox {
-    background-color: var(--primary);
-    border-color: var(--primary);
-    box-shadow: 0 0 8px var(--primary-glow);
-}
-
-.role-checkbox-label input:checked + .custom-checkbox::after {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 9px;
-    border: solid var(--text-light);
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-/* Checkboxes globais de armas */
 .global-weapon-config {
     margin-bottom: 2rem;
     padding-top: 1rem;
@@ -643,8 +432,19 @@ select:focus {
     transition: var(--transition-fast);
 }
 
-.category-checkbox-label input {
-    display: none;
+/* escondido mas ainda focável pelo teclado */
+.category-checkbox-label input,
+.agent-checkbox-card input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+}
+
+.category-checkbox-label input:focus-visible + .custom-checkbox {
+    outline: 2px solid var(--text-light);
+    outline-offset: 2px;
 }
 
 .custom-checkbox {
@@ -679,10 +479,6 @@ select:focus {
     transform: rotate(45deg);
 }
 
-/* ==========================================================================
-   PAINEL DE RESULTADOS E GRID DE CARTAS
-   ========================================================================== */
-
 .results-panel {
     display: flex;
     flex-direction: column;
@@ -695,18 +491,6 @@ select:focus {
     font-weight: 700;
     letter-spacing: 1.5px;
     color: var(--text-light);
-    position: relative;
-    padding-left: 1rem;
-}
-
-.section-title::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    height: 70%;
-    width: 4px;
-    background: var(--primary);
 }
 
 .results-grid {
@@ -736,18 +520,6 @@ select:focus {
     color: var(--text-muted);
 }
 
-.empty-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-    opacity: 0.4;
-    animation: floatEmpty 4s ease-in-out infinite alternate;
-}
-
-@keyframes floatEmpty {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
-}
-
 .empty-state h3 {
     font-family: var(--font-header);
     font-size: 1.5rem;
@@ -761,7 +533,6 @@ select:focus {
     max-width: 400px;
 }
 
-/* CARTAS ESTILIZADAS PREMIUM DOS AGENTES SORTEADOS */
 .result-card {
     height: 420px;
     background: #161920;
@@ -777,56 +548,57 @@ select:focus {
     z-index: 1;
 }
 
-.result-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(255, 70, 85, 0.15);
-    border-color: rgba(255, 70, 85, 0.4);
+@media (hover: hover) {
+    .result-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(255, 70, 85, 0.15);
+        border-color: rgba(255, 70, 85, 0.4);
+    }
 }
 
-/* Arte de fundo atras do portrait do boneco */
-.card-agent-bg {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 75%;
-    object-fit: contain;
-    opacity: 0.15;
-    z-index: -1;
-    transition: var(--transition-smooth);
-    pointer-events: none;
+/* a arte ocupa só o espaço entre o badge e o nome, nunca fica por baixo deles */
+.card-agent-art {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
 }
 
-.result-card:hover .card-agent-bg {
-    transform: translateX(-50%) scale(1.1);
-    opacity: 0.25;
-}
-
-/* Retrato flutuante do boneco sorteado */
+.card-agent-bg,
 .card-agent-portrait {
     position: absolute;
-    top: 25px;
-    left: 5%;
-    width: 90%;
-    height: 65%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    z-index: 2;
     pointer-events: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: var(--transition-smooth);
+}
+
+.card-agent-bg {
+    opacity: 0.15;
+}
+
+.card-agent-portrait {
+    padding: 0.5rem 0.5rem 0;
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
 }
 
-.result-card:hover .card-agent-portrait {
-    transform: scale(1.08) translateY(-5px);
-    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.7));
+@media (hover: hover) {
+    .result-card:hover .card-agent-bg {
+        transform: scale(1.05);
+        opacity: 0.25;
+    }
+
+    .result-card:hover .card-agent-portrait {
+        transform: scale(1.04);
+    }
 }
 
-/* Identificacao de quem e a carta (Nome do jogador) */
 .card-player-badge {
     background: rgba(17, 20, 26, 0.85);
-    border-bottom: 1.5px solid var(--primary);
-    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.6rem 3.25rem 0.6rem 1rem;
     z-index: 3;
     backdrop-filter: blur(4px);
 }
@@ -849,7 +621,6 @@ select:focus {
     text-overflow: ellipsis;
 }
 
-/* Rodape da carta: Nome do agente e funcao */
 .card-agent-details {
     background: linear-gradient(to top, rgba(15, 18, 20, 1) 0%, rgba(15, 18, 20, 0.95) 60%, rgba(15, 18, 20, 0) 100%);
     padding: 1.5rem 1rem 1.25rem 1rem;
@@ -861,7 +632,7 @@ select:focus {
 
 .card-agent-name {
     font-family: var(--font-accent);
-    font-size: 1.9rem; /* Um pouco menor pra caber nomes compridos tipo Brimstone sem passar da borda */
+    font-size: 1.9rem;
     font-weight: 700;
     letter-spacing: 0.5px;
     line-height: 0.9;
@@ -869,7 +640,7 @@ select:focus {
     text-transform: uppercase;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Se mesmo assim estourar, bota três pontinhos com estilo */
+    text-overflow: ellipsis;
 }
 
 .card-agent-role {
@@ -890,9 +661,8 @@ select:focus {
     filter: brightness(0.7);
 }
 
-/* CARTA DE ARMAS (Estilo compacto super limpo) */
 .weapon-card {
-    height: 300px;
+    min-height: 300px;
     background: #161920;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -906,14 +676,17 @@ select:focus {
     z-index: 1;
 }
 
-.weapon-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
-    border-color: rgba(255, 70, 85, 0.3);
+@media (hover: hover) {
+    .weapon-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+        border-color: rgba(255, 70, 85, 0.3);
+    }
 }
 
 .card-weapon-portrait-container {
-    height: 50%;
+    flex: 1 1 0;
+    min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -929,8 +702,10 @@ select:focus {
     transition: var(--transition-smooth);
 }
 
-.weapon-card:hover .card-weapon-portrait {
-    transform: scale(1.05) rotate(-2deg);
+@media (hover: hover) {
+    .weapon-card:hover .card-weapon-portrait {
+        transform: scale(1.05) rotate(-2deg);
+    }
 }
 
 .card-weapon-category {
@@ -950,10 +725,6 @@ select:focus {
     letter-spacing: 0.5px;
 }
 
-/* ==========================================================================
-   ANIMACOES E EFEITOS DE EMBARALHAR (CICLO DE SORTEIO)
-   ========================================================================== */
-
 .raf-active {
     animation: raffleGlow 0.2s linear infinite alternate;
     pointer-events: none;
@@ -964,18 +735,15 @@ select:focus {
     100% { border-color: rgba(255, 70, 85, 0.8); box-shadow: 0 0 20px rgba(255, 70, 85, 0.4); }
 }
 
+/* backwards pro hover funcionar depois da entrada */
 .animate-pop-in {
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
 }
 
 @keyframes popIn {
     0% { opacity: 0; transform: scale(0.85) translateY(20px); }
     100% { opacity: 1; transform: scale(1) translateY(0); }
 }
-
-/* ==========================================================================
-   MODAL DE AGENTES DO JOGADOR (CAIXA FLUTUANTE)
-   ========================================================================== */
 
 .modal {
     display: none;
@@ -1031,10 +799,14 @@ select:focus {
     background: transparent;
     border: none;
     color: var(--text-muted);
-    font-size: 2rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: var(--transition-fast);
-    line-height: 0.5;
 }
 
 .close-btn:hover {
@@ -1086,7 +858,6 @@ select:focus {
     padding: 0.3rem 0.75rem;
 }
 
-/* Grid de selecao de agentes */
 .agent-selector-container {
     border: 1px solid var(--border-color);
     background: rgba(15, 18, 20, 0.5);
@@ -1116,8 +887,9 @@ select:focus {
     position: relative;
 }
 
-.agent-checkbox-card input {
-    display: none;
+.agent-checkbox-card:focus-within {
+    outline: 2px solid var(--text-light);
+    outline-offset: 2px;
 }
 
 .agent-checkbox-icon {
@@ -1144,7 +916,6 @@ select:focus {
     width: 100%;
 }
 
-/* Estilo do card selecionado */
 .agent-checkbox-card.checked {
     border-color: var(--primary);
     background: rgba(255, 70, 85, 0.06);
@@ -1188,17 +959,13 @@ select:focus {
 }
 
 .animate-zoom {
-    animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
+    animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) backwards;
 }
 
 @keyframes zoomIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
-
-/* ==========================================================================
-   RESPONSIVIDADE (MOBILE FRIENDLY)
-   ========================================================================== */
 
 @media (max-width: 1024px) {
     .setup-grid {
@@ -1225,7 +992,7 @@ select:focus {
     }
 
     .v-logo {
-        font-size: 2.5rem;
+        width: 2.75rem;
     }
 
     .app-title {
@@ -1252,12 +1019,7 @@ select:focus {
     }
     
     .result-card {
-        height: 360px;
-    }
-    
-    .card-agent-portrait {
-        top: 45px; /* Empurra o retrato um tiquinho pra baixo pra não cobrir a cabeça do boneco com o badge */
-        height: 55%; /* Reduz a escala pra ficar perfeitinho no grid apertado do celular */
+        height: 400px;
     }
     
     .card-agent-name {
@@ -1272,15 +1034,11 @@ select:focus {
 @media (max-width: 480px) {
     .results-grid {
         grid-template-columns: 1fr;
-        max-width: 280px;
+        max-width: 320px;
         margin: 0 auto;
         width: 100%;
     }
 }
-
-/* ==========================================================================
-   RODAPE COM CREDITO E YORU GLOWING BADGE
-   ========================================================================== */
 
 .app-footer {
     margin-top: 3.5rem;
@@ -1335,7 +1093,6 @@ select:focus {
     transform: translateY(-1px) scale(1.03);
 }
 
-/* Emblema holografico do Yoru */
 .yoru-badge {
     position: relative;
     width: 42px;
@@ -1344,7 +1101,7 @@ select:focus {
     cursor: pointer;
     transition: var(--transition-smooth);
     background: rgba(15, 18, 20, 0.8);
-    border: 1.5px solid #00f0ff; /* Neon cyan/blue for Yoru signature */
+    border: 1.5px solid #00f0ff;
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.3), inset 0 0 8px rgba(0, 240, 255, 0.2);
     display: flex;
     align-items: center;
@@ -1380,10 +1137,9 @@ select:focus {
     100% { transform: scale(1.1) rotate(180deg); opacity: 0.9; }
 }
 
-/* Efeito Hover do Yoru Badge que muda de azul para vermelho */
 .yoru-badge:hover {
     transform: scale(1.15) rotate(5deg);
-    border-color: var(--primary); /* Muda pra vermelho no hover! */
+    border-color: var(--primary);
     box-shadow: 0 0 15px rgba(255, 70, 85, 0.6), inset 0 0 10px rgba(255, 70, 85, 0.4);
 }
 
@@ -1396,7 +1152,6 @@ select:focus {
     background: radial-gradient(circle, rgba(255, 70, 85, 0.35) 0%, transparent 70%);
 }
 
-/* Seletor de funcao individual por jogador (dropdown elegante com seta SVG) */
 .player-role-select {
     background: rgba(15, 18, 20, 0.8);
     border: 1px solid var(--border-color);
@@ -1413,7 +1168,6 @@ select:focus {
     transition: var(--transition-fast);
     text-transform: uppercase;
     
-    /* Setinha customizada bonitona no dropdown */
     appearance: none;
     -webkit-appearance: none;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23ece8e1'><polygon points='0,2 10,2 5,8'/></svg>");
@@ -1421,8 +1175,8 @@ select:focus {
     background-position: right 0.5rem center;
     background-size: 8px;
     
-    flex: 1.2; /* Permite o dropdown ser flexivel */
-    min-width: 90px; /* Garante que ele encolha mas nao esmague o nome do jogador */
+    flex: 1.2;
+    min-width: 90px;
 }
 
 .player-role-select:hover {
@@ -1460,9 +1214,6 @@ select:focus {
     }
 }
 
-/* ==========================================================================
-   BOTAO DE GIRAR NOVAMENTE INDIVIDUAL (REROLL COM GIRO HOVER ESTILOSO)
-   ========================================================================== */
 .btn-reroll {
     position: absolute;
     top: 10px;
@@ -1477,7 +1228,7 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 1rem;
     transition: var(--transition-smooth);
     z-index: 10;
     box-shadow: 0 0 10px rgba(255, 70, 85, 0.3);
@@ -1488,16 +1239,13 @@ select:focus {
     background: var(--primary);
     color: var(--text-light);
     box-shadow: 0 0 15px var(--primary), inset 0 0 5px rgba(255, 255, 255, 0.3);
-    transform: rotate(180deg) scale(1.1); /* Roda o icone bonito no hover */
+    transform: rotate(180deg) scale(1.1);
 }
 
 .btn-reroll:active {
     transform: rotate(180deg) scale(0.95);
 }
 
-/* ==========================================================================
-   ESTILOS DE GERENCIAMENTO DE PERFIS (PERSISTENCIA E UX SHOW)
-   ========================================================================== */
 .profile-save-area {
     display: flex;
     gap: 0.75rem;
@@ -1563,10 +1311,10 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     transition: var(--transition-fast);
     margin-right: 0.25rem;
-    flex-shrink: 0; /* Impede o botao do bonequinho de sumir no aperto */
+    flex-shrink: 0;
 }
 
 .btn-profile:hover {
@@ -1576,20 +1324,166 @@ select:focus {
     box-shadow: 0 0 10px var(--primary-glow);
 }
 
+.profile-save-area .player-name-input {
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: 4px;
+    background: rgba(15, 18, 20, 0.8);
+}
+
+.profile-save-area .v-button {
+    width: auto;
+    flex-shrink: 0;
+}
+
+.profile-list-title {
+    font-family: var(--font-header);
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin: 1.5rem 0 0.75rem 0;
+    letter-spacing: 1px;
+}
+
+.profile-empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.profile-item-name {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.profile-item-name small {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.btn-secondary.btn-danger {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-secondary.btn-danger.armed {
+    background: var(--primary);
+    color: var(--text-light);
+}
+
+.modal-role-note {
+    color: var(--primary);
+}
+
 @media (max-width: 480px) {
     .profile-save-area {
         flex-direction: column;
         align-items: stretch;
     }
-    
-    .profile-save-area button {
-        width: 100% !important;
-        margin-left: 0 !important;
+
+    .profile-save-area .v-button {
+        width: 100%;
     }
-    
+
     .btn-profile {
         width: 100%;
         margin-right: 0;
         margin-bottom: 0.25rem;
+    }
+}
+
+[hidden] {
+    display: none !important; /* hidden precisa vencer display de classe */
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+}
+
+/* texto só aparece no celular, onde o botão ocupa a linha toda */
+.btn-label {
+    display: none;
+    margin-left: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .btn-icon-config .btn-label,
+    .btn-profile .btn-label {
+        display: inline;
+    }
+}
+
+.toast-container {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: min(92vw, 440px);
+    z-index: 2000; /* acima dos modais */
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(17, 20, 26, 0.97);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    animation: toastIn 0.25s ease-out;
+    transition: opacity 0.25s, transform 0.25s;
+}
+
+.toast-error {
+    border-color: var(--primary);
+}
+
+.toast.leaving {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.noscript-note {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+/* vem no fim pra vencer os outline: none lá de cima */
+.nav-btn:focus-visible,
+.v-button:focus-visible,
+.btn-reroll:focus-visible,
+.btn-icon-config:focus-visible,
+.btn-profile:focus-visible,
+.btn-secondary:focus-visible,
+.close-btn:focus-visible,
+.player-role-select:focus-visible,
+.players-count-picker select:focus-visible,
+.footer-author-link:focus-visible {
+    outline: 2px solid var(--text-light);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
