@@ -534,7 +534,7 @@ select:focus {
 }
 
 .result-card {
-    height: 420px;
+    height: 440px;
     background: #161920;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -580,7 +580,8 @@ select:focus {
 }
 
 .card-agent-portrait {
-    padding: 0.5rem 0.5rem 0;
+    object-fit: cover;
+    object-position: 50% 30%;
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
 }
 
@@ -1019,7 +1020,7 @@ select:focus {
     }
     
     .result-card {
-        height: 400px;
+        height: 440px;
     }
     
     .card-agent-name {
