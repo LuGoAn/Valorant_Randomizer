@@ -2,9 +2,11 @@
     const { store, solver, storage } = VR;
     const { h, icon, toast, Modal, setImage } = VR.dom;
 
-    const SPIN_STEP_MS = 80;
-    const SPIN_ALL_MS = 1400;
-    const SPIN_ONE_MS = 1000;
+    const SPIN_BASE_MS = 1600;
+    const SPIN_STAGGER_MS = 380;
+    const SPIN_LAST_EXTRA_MS = 300;
+    const SPIN_ONE_MS = 1300;
+    const REEL_SLIDES_PER_SECOND = 9;
 
     const listFormat = new Intl.ListFormat("pt-BR", { style: "long", type: "conjunction" });
 
@@ -180,12 +182,16 @@
         const portrait = h("img", { class: "card-agent-portrait", alt: "" });
         const name = h("div", { class: "card-agent-name" });
         const roleIcon = h("img", { class: "card-role-icon", alt: "" });
+        roleIcon.hidden = true;
         const roleText = h("span");
+        const track = h("div", { class: "reel-track" });
+        const reel = h("div", { class: "card-reel" }, track);
+        const art = h("div", { class: "card-agent-art" }, background, portrait, reel);
 
         const root = h("div", { class: "result-card", id: `agent-result-card-${index}` },
             rerollButton("Sortear novamente apenas este jogador", () => rerollAgent(index)),
             playerBadge(index),
-            h("div", { class: "card-agent-art" }, background, portrait),
+            art,
             h("div", { class: "card-agent-details" },
                 name,
                 h("div", { class: "card-agent-role" }, roleIcon, roleText)
@@ -194,6 +200,14 @@
 
         return {
             root,
+            host: art,
+            reel,
+            track,
+            setLabel(agent) {
+                setImage(roleIcon, agent.roleIcon);
+                name.textContent = agent.name;
+                roleText.textContent = agent.roleName;
+            },
             update(agent) {
                 setImage(background, agent.background);
                 setImage(portrait, agent.portrait || agent.displayIcon, agent.displayIcon);
@@ -209,16 +223,26 @@
         const portrait = h("img", { class: "card-weapon-portrait", alt: "" });
         const category = h("div", { class: "card-weapon-category" });
         const name = h("div", { class: "card-weapon-name" });
+        const track = h("div", { class: "reel-track" });
+        const reel = h("div", { class: "card-reel weapon" }, track);
+        const holder = h("div", { class: "card-weapon-portrait-container" }, portrait, reel);
 
         const root = h("div", { class: "weapon-card", id: `weapon-result-card-${index}` },
             rerollButton("Sortear novamente apenas esta arma", () => rerollWeapon(index)),
             playerBadge(index),
-            h("div", { class: "card-weapon-portrait-container" }, portrait),
+            holder,
             h("div", { class: "card-agent-details" }, category, name)
         );
 
         return {
             root,
+            host: holder,
+            reel,
+            track,
+            setLabel(weapon) {
+                category.textContent = weapon.category;
+                name.textContent = weapon.name;
+            },
             update(weapon) {
                 setImage(portrait, weapon.portrait);
                 portrait.alt = weapon.name;
@@ -233,12 +257,14 @@
             containerId: "agents-results",
             field: "agent",
             build: buildAgentCard,
+            imageOf: agent => agent.portrait || agent.displayIcon,
             emptyText: 'Configure os jogadores, ajuste os pools de agentes liberados e clique em "GERAR AGENTES" para revelar as atribuições.'
         },
         weapons: {
             containerId: "weapons-results",
             field: "weapon",
             build: buildWeaponCard,
+            imageOf: weapon => weapon.portrait,
             emptyText: 'Configure os jogadores, defina quais categorias de armas estão liberadas e clique em "GERAR ARMAS" para armar sua equipe.'
         }
     };
@@ -255,50 +281,125 @@
         );
     }
 
-    function spin(duration, tick) {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    const easeOut = u => 1 - Math.pow(1 - u, 3);
+
+    // com movimento reduzido o rolo continua, só mais curto e sem borrão
+    const motion = () => (window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.5 : 1);
+
+    function preload(urls) {
+        const loads = [...new Set(urls.filter(Boolean))].map(url => new Promise(resolve => {
+            const img = new Image();
+            img.onload = img.onerror = resolve;
+            img.src = url;
+        }));
+        return Promise.race([Promise.all(loads), sleep(2500)]);
+    }
+
+    function buildReelItems(count, pick, first, final) {
+        const items = first ? [first] : [];
+        while (items.length < count - 1) {
+            let item = pick();
+            for (let tries = 0; tries < 3 && item === items[items.length - 1]; tries++) item = pick();
+            items.push(item);
+        }
+        if (items[items.length - 1] === final) items[items.length - 1] = pick();
+        items.push(final);
+        return items;
+    }
+
+    function runReel(card, info, items, duration) {
         return new Promise(resolve => {
+            const slideH = card.host.clientHeight;
+            const last = items.length - 1;
+            const blurFactor = motion() === 1 ? 0.2 : 0;
+
+            card.reel.style.setProperty("--slide-h", `${slideH}px`);
+            card.track.replaceChildren(...items.map(item => {
+                const slide = h("img", { class: "reel-slide", alt: "" });
+                setImage(slide, info.imageOf(item), item.displayIcon);
+                return slide;
+            }));
+
             const start = performance.now();
-            tick();
-            const timer = setInterval(() => {
-                if (performance.now() - start >= duration) {
-                    clearInterval(timer);
-                    resolve();
-                } else {
-                    tick();
+            let shown = -1;
+
+            function frame(now) {
+                const u = Math.min(1, (now - start) / duration);
+                const position = easeOut(u) * last;
+                const speed = 3 * Math.pow(1 - u, 2) * last / (duration / 1000); // slides por segundo
+                const blur = Math.min(5, speed * blurFactor);
+
+                card.track.style.transform = `translateY(${-position * slideH}px)`;
+                card.track.style.filter = blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : "none";
+
+                const index = Math.round(position);
+                if (index !== shown) {
+                    shown = index;
+                    card.setLabel(items[index]);
                 }
-            }, SPIN_STEP_MS);
+                if (u < 1) requestAnimationFrame(frame);
+                else resolve();
+            }
+            requestAnimationFrame(frame);
         });
     }
 
-    // raf-active e animate-pop-in brigam pelo animation, nunca os dois juntos
-    function startSpin(root) {
-        root.classList.remove("animate-pop-in");
-        root.classList.add("raf-active");
+    // o nome entra e o card dá a batida, só depois a arte aparece de verdade
+    async function land(card, info, index, final) {
+        store.players[index][info.field] = final;
+        card.setLabel(final);
+        card.root.classList.add("is-landed");
+        await sleep(180 * motion());
+
+        card.update(final);
+        card.root.classList.remove("is-pending");
+
+        setTimeout(() => {
+            card.track.replaceChildren();
+            card.track.style.cssText = "";
+            card.root.classList.remove("is-landed");
+        }, 450);
     }
 
-    function endSpin(root) {
-        root.classList.remove("raf-active");
-        root.classList.add("animate-pop-in");
+    async function spinCards(kind, entries) {
+        const info = KINDS[kind];
+        entries.forEach(({ card }) => card.root.classList.add("is-pending"));
+        await preload(entries.flatMap(({ items }) => items.map(info.imageOf)));
+        await Promise.all(entries.map(async ({ card, items, duration, index, final }) => {
+            await runReel(card, info, items, duration);
+            await land(card, info, index, final);
+        }));
+    }
+
+    function reelCount(duration) {
+        return Math.min(22, Math.max(8, Math.round(duration / 1000 * REEL_SLIDES_PER_SECOND)));
     }
 
     async function revealAll(kind, preview, finals) {
         const info = KINDS[kind];
         const container = $(info.containerId);
+        const scale = motion();
         spinning = true;
         try {
             const cards = store.players.map((_, index) => info.build(index));
             shown[kind] = cards;
             container.classList.remove("empty");
             container.replaceChildren(...cards.map(card => card.root));
-            cards.forEach(card => startSpin(card.root));
-
-            await spin(SPIN_ALL_MS, () => cards.forEach((card, index) => card.update(preview(index))));
-
             cards.forEach((card, index) => {
-                store.players[index][info.field] = finals[index];
-                card.update(finals[index]);
-                endSpin(card.root);
+                card.root.style.setProperty("--i", index);
+                card.root.classList.add("card-enter");
+                setTimeout(() => card.root.classList.remove("card-enter"), 600);
             });
+
+            const entries = cards.map((card, index) => {
+                const lastExtra = index === cards.length - 1 && cards.length > 1 ? SPIN_LAST_EXTRA_MS : 0;
+                const duration = (SPIN_BASE_MS + index * SPIN_STAGGER_MS + lastExtra) * scale;
+                const items = buildReelItems(reelCount(duration), () => preview(index), null, finals[index]);
+                return { card, items, duration, index, final: finals[index] };
+            });
+            await spinCards(kind, entries);
+            await sleep(200);
         } finally {
             spinning = false;
         }
@@ -307,13 +408,13 @@
     async function revealOne(kind, index, preview, final) {
         const card = shown[kind][index];
         if (!card) return;
+        const duration = SPIN_ONE_MS * motion();
         spinning = true;
         try {
-            startSpin(card.root);
-            await spin(SPIN_ONE_MS, () => card.update(preview()));
-            store.players[index][KINDS[kind].field] = final;
-            card.update(final);
-            endSpin(card.root);
+            const current = store.players[index][KINDS[kind].field];
+            const items = buildReelItems(reelCount(duration), () => preview(index), current, final);
+            await spinCards(kind, [{ card, items, duration, index, final }]);
+            await sleep(200);
         } finally {
             spinning = false;
         }

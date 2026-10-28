@@ -726,14 +726,88 @@ select:focus {
     letter-spacing: 0.5px;
 }
 
-.raf-active {
-    animation: raffleGlow 0.2s linear infinite alternate;
+.card-reel {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0;
     pointer-events: none;
+    transition: opacity 0.25s ease;
 }
 
-@keyframes raffleGlow {
-    0% { border-color: rgba(255, 70, 85, 0.3); box-shadow: 0 0 10px rgba(255, 70, 85, 0.1); }
-    100% { border-color: rgba(255, 70, 85, 0.8); box-shadow: 0 0 20px rgba(255, 70, 85, 0.4); }
+.reel-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    will-change: transform, filter;
+}
+
+.reel-slide {
+    display: block;
+    width: 100%;
+    height: var(--slide-h, 100%);
+    object-fit: cover;
+    object-position: 50% 30%;
+}
+
+.card-reel.weapon .reel-slide {
+    object-fit: contain;
+    object-position: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* enquanto roda, a arte de verdade fica escondida e só o rolo aparece */
+.result-card.is-pending,
+.weapon-card.is-pending {
+    border-color: rgba(255, 70, 85, 0.45);
+}
+
+.is-pending .card-reel {
+    opacity: 1;
+    transition: none;
+}
+
+.result-card.is-pending .card-agent-portrait,
+.result-card.is-pending .card-agent-bg,
+.weapon-card.is-pending .card-weapon-portrait {
+    opacity: 0;
+    transition: none;
+}
+
+.card-enter {
+    animation: cardEnter 0.35s ease-out backwards;
+    animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+@keyframes cardEnter {
+    0% { opacity: 0; transform: translateY(14px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.is-landed {
+    animation: landImpact 0.45s ease-out;
+}
+
+.is-landed .card-agent-name,
+.is-landed .card-weapon-name {
+    animation: nameIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+@keyframes landImpact {
+    0% { transform: scale(1); }
+    30% {
+        transform: scale(1.035);
+        border-color: rgba(255, 70, 85, 0.95);
+        box-shadow: 0 0 0 1px rgba(255, 70, 85, 0.5), 0 14px 30px rgba(0, 0, 0, 0.6);
+    }
+    100% { transform: scale(1); }
+}
+
+@keyframes nameIn {
+    0% { opacity: 0; transform: translateY(0.6rem); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 /* backwards pro hover funcionar depois da entrada */
