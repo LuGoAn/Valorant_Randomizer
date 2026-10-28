@@ -6,7 +6,6 @@
     const SPIN_ALL_MS = 1400;
     const SPIN_ONE_MS = 1000;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const listFormat = new Intl.ListFormat("pt-BR", { style: "long", type: "conjunction" });
 
     const $ = id => document.getElementById(id);
@@ -256,13 +255,8 @@
         );
     }
 
-    // pula a animação se o sistema pede menos movimento
     function spin(duration, tick) {
         return new Promise(resolve => {
-            if (reduceMotion.matches) {
-                resolve();
-                return;
-            }
             const start = performance.now();
             tick();
             const timer = setInterval(() => {

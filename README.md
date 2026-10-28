@@ -69,8 +69,7 @@ valorant-randomizer/
 
 ## Acessibilidade
 
-Dá pra usar tudo pelo teclado: as abas, as janelas (Esc fecha e o foco fica preso lá dentro) e as caixas de seleção. Se o sistema estiver configurado pra reduzir animações, o sorteio mostra o resultado direto, sem a roleta.
-
+Dá pra usar tudo pelo teclado: as abas, as janelas (Esc fecha e o foco fica preso lá dentro) e as caixas de seleção.
 ## Feito por
 
 LuGoAn (Nekin). Se achar algum bug ou tiver uma ideia, abre uma issue aqui no repositório.
